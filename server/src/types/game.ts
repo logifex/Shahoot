@@ -7,6 +7,7 @@ type Game = {
   players: PlayerSession[];
   questions: Question[];
   currentQuestionIndex: number;
+  questionTime: number;
   gettingAnswers: boolean;
 };
 

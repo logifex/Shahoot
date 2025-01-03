@@ -1,10 +1,11 @@
 import { Server as SocketServer } from "socket.io";
 import { Server } from "http";
 import DUMMY_QUESTIONS from "./DUMMY_QUESTIONS";
-import Player, { PlayerSession } from "player";
+import Player from "player";
 import { ClientToServerEvents, ServerToClientEvents } from "socket";
 import Game from "game";
 import generatePinCode from "./utils/generatePinCode";
+import calculateScore from "./utils/calculateScore";
 
 const PREPARE_QUESTION_TIMEOUT = 5000;
 const QUESTION_TIMEOUT = 10000;
@@ -28,6 +29,7 @@ export const configSocket = (httpServer: Server) => {
         questions: DUMMY_QUESTIONS,
         currentQuestionIndex: -1,
         gettingAnswers: false,
+        questionTime: 0,
       };
       games.push(game);
       socket.join(`room-${gamePin}`);
@@ -86,6 +88,7 @@ export const configSocket = (httpServer: Server) => {
       setTimeout(() => {
         io.to(`room-${pin}`).emit("startQuestion");
         game.gettingAnswers = true;
+        game.questionTime = Date.now();
         setTimeout(() => {
           if (
             game.gettingAnswers &&
@@ -120,7 +123,7 @@ export const configSocket = (httpServer: Server) => {
 
       player.round.chosenAnswerIndex = index;
       if (currentQuestion.answers[index].correct) {
-        player.round.score = 100;
+        player.round.score = calculateScore(game.questionTime);
       }
 
       if (!game.players.find((p) => p.round.chosenAnswerIndex === undefined)) {
