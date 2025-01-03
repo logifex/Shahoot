@@ -1,0 +1,30 @@
+.form button,
+.form input {
+  width: 100%;
+}
+
+.form button {
+  margin-top: 0.5rem;
+  display: block;
+}
+
+.form input {
+  padding: 0.7rem 0.5rem;
+  background-color: white;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 1px solid rgb(150, 150, 150);
+  border-radius: 0.2rem;
+}
+
+.form input::placeholder {
+  color: rgb(150, 150, 150);
+}
+
+.form button {
+  background-color: rgb(50, 50, 50);
+  color: white;
+  padding: 0.7rem;
+  font-size: 1rem;
+}
