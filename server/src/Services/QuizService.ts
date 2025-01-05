@@ -20,7 +20,10 @@ const createQuiz = async (quizInput: IQuiz): Promise<IQuiz> => {
 };
 
 const updateQuiz = async (id: string, quizInput: IQuiz): Promise<IQuiz> => {
-  const quiz = await Quiz.findByIdAndUpdate(id, quizInput, { new: true });
+  const quiz = await Quiz.findByIdAndUpdate(id, quizInput, {
+    new: true,
+    runValidators: true,
+  });
 
   if (!quiz) {
     throw new Error("No quiz found");
