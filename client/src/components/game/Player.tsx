@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import JoinForm from "./JoinForm";
+import JoinForm from "./JoinForm/JoinForm";
 import socket from "../../config/socket";
-import PrepareQuestionTimer from "./PrepareQuestionTimer";
-import QuestionButtons from "./QuestionButtons";
-import QuestionButton from "./QuestionButton";
+import PrepareQuestionTimer from "./PrepareQuestionTimer/PrepareQuestionTimer";
+import Answers from "./Answers/Answers";
+import AnswerButton from "./AnswerButton/AnswerButton";
+import Waiting from "./Waiting/Waiting";
+import QuestionResult from "./QuestionResult/QuestionResult";
 
 enum GameState {
   Waiting,
@@ -14,6 +16,7 @@ enum GameState {
 
 const Player = () => {
   const [pin, setPin] = useState<string>();
+  const [nickname, setNickname] = useState<string>();
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answerAmount, setAnswerAmount] = useState(0);
   const [chosenAnswerIndex, setChosenAnswerIndex] = useState<number>();
@@ -22,6 +25,7 @@ const Player = () => {
 
   const handleJoin = (pin: string, nickname: string) => {
     socket.emit("playerJoin", pin, nickname);
+    setNickname(nickname);
   };
 
   useEffect(() => {
@@ -77,24 +81,21 @@ const Player = () => {
 
   return (
     <>
-      {gameState === GameState.Waiting && (
-        <p>You're in! Wait for the game to start.</p>
+      {gameState === GameState.Waiting && nickname && (
+        <Waiting nickname={nickname} />
       )}
       {gameState === GameState.PrepareQuestion && (
         <PrepareQuestionTimer questionNumber={questionIndex + 1} />
       )}
       {gameState === GameState.Question &&
         (chosenAnswerIndex === undefined ? (
-          <QuestionButtons amount={answerAmount} onAnswer={handleAnswer} />
+          <Answers amount={answerAmount} onAnswer={handleAnswer} />
         ) : (
-          <QuestionButton index={chosenAnswerIndex} />
+          <AnswerButton index={chosenAnswerIndex} />
         ))}
-      {gameState === GameState.QuestionResults &&
-        (round?.correct ? (
-          <p>Correct! Score +{round.score}</p>
-        ) : (
-          <p>Incorrect...</p>
-        ))}
+      {gameState === GameState.QuestionResults && (
+        <QuestionResult correct={!!round?.correct} score={round?.score ?? 0} />
+      )}
     </>
   );
 };

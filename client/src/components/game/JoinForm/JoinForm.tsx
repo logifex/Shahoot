@@ -22,7 +22,7 @@ const JoinForm = ({ onSubmit }: Props) => {
   const nameRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div>
+    <div className="flex-center">
       <div>
         <p>Shahoot!</p>
       </div>

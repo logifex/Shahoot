@@ -1,0 +1,21 @@
+.button {
+  font-size: 1.2rem;
+  padding: 1rem 3rem;
+  cursor: pointer;
+}
+
+.first-answer {
+  background-color: #e21b3c;
+}
+
+.second-answer {
+  background-color: #1368ce;
+}
+
+.third-answer {
+  background-color: #d89e00;
+}
+
+.fourth-answer {
+  background-color: #26890c;
+}

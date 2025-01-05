@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import Lobby from "./Lobby";
+import Lobby from "./Lobby/Lobby";
 import socket from "../../../config/socket";
-import PrepareQuestion from "./PrepareQuestion";
-import Question from "./Question";
-import Leaderboard from "./Leaderboard";
+import PrepareQuestion from "./PrepareQuestion/PrepareQuestion";
+import Question from "./Question/Question";
+import Leaderboard from "./Leaderboard/Leaderboard";
 import QuestionType from "../../../types/question";
 import Game from "../../../types/game";
 import Player from "../../../types/player";

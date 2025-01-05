@@ -1,0 +1,12 @@
+.scoreboard {
+    width: 75%;
+}
+
+.score-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    font-size: 2rem;
+    border: 1px solid black;
+    margin: 1rem;
+}

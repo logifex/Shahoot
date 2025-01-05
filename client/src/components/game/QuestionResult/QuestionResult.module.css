@@ -1,0 +1,11 @@
+.container-correct {
+  background-color: green;
+}
+
+.container-incorrect {
+  background-color: red;
+}
+
+.result-text {
+  font-size: 1.5rem;
+}
