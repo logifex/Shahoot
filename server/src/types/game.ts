@@ -1,14 +1,14 @@
-import { PlayerSession } from "player";
-import Question from "question";
+import { IPlayerSession } from "player";
+import IQuestion from "question";
 
-type Game = {
+interface IGame {
   pin: string;
   host: string;
-  players: PlayerSession[];
-  questions: Question[];
+  players: IPlayerSession[];
+  questions: IQuestion[];
   currentQuestionIndex: number;
   questionTime: number;
   gettingAnswers: boolean;
-};
+}
 
-export default Game;
+export default IGame;

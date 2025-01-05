@@ -1,6 +1,8 @@
-type Question = {
-  question: string;
-  answers: { answer: string; correct: boolean }[];
-};
+import IAnswer from "answer";
 
-export default Question;
+interface IQuestion {
+  question: string;
+  answers: IAnswer[];
+}
+
+export default IQuestion;

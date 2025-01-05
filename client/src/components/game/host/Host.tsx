@@ -7,6 +7,7 @@ import Leaderboard from "./Leaderboard/Leaderboard";
 import QuestionType from "../../../types/question";
 import Game from "../../../types/game";
 import Player from "../../../types/player";
+import { useSearchParams } from "react-router";
 
 enum GameState {
   Lobby,
@@ -21,8 +22,11 @@ const Host = () => {
   const [game, setGame] = useState<Game>();
   const [gameState, setGameState] = useState<GameState>(GameState.Lobby);
 
+  const [searchParams] = useSearchParams();
+  const quizId = searchParams.get("quiz");
+
   useEffect(() => {
-    if (!game) {
+    if (!game && quizId) {
       const gameCreated = (newPin: string, questions: QuestionType[]) => {
         setGame({
           pin: newPin,
@@ -32,13 +36,13 @@ const Host = () => {
         });
       };
       socket.on("gameCreated", gameCreated);
-      socket.emit("gameCreate");
+      socket.emit("gameCreate", quizId);
 
       return () => {
         socket.off("gameCreated", gameCreated);
       };
     }
-  }, [game]);
+  }, [game, quizId]);
 
   useEffect(() => {
     const handlePlayerJoined = (player: Player) => {

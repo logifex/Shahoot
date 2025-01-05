@@ -1,32 +1,41 @@
 import { Server as SocketServer } from "socket.io";
 import { Server } from "http";
-import DUMMY_QUESTIONS from "./DUMMY_QUESTIONS";
-import Player from "player";
-import { ClientToServerEvents, ServerToClientEvents } from "socket";
-import Game from "game";
+import IPlayer from "player";
+import { IClientToServerEvents, IServerToClientEvents } from "socket";
+import IGame from "game";
 import generatePinCode from "./utils/generatePinCode";
 import calculateScore from "./utils/calculateScore";
+import Quiz from "./models/Quiz";
 
 const PREPARE_QUESTION_TIMEOUT = 5000;
 const QUESTION_TIMEOUT = 10000;
 
-let io: SocketServer<ClientToServerEvents, ServerToClientEvents> | undefined =
+let io: SocketServer<IClientToServerEvents, IServerToClientEvents> | undefined =
   undefined;
 
-const games: Game[] = [];
+const games: IGame[] = [];
 
 export const configSocket = (httpServer: Server) => {
   io = new SocketServer(httpServer, { cors: { origin: "*" } });
 
   // TODO add error handling
   io.on("connection", (socket) => {
-    const createGame = () => {
+    const createGame = async (quizId: unknown) => {
+      if (typeof quizId !== "string") {
+        return;
+      }
+
+      const quiz = await Quiz.findById(quizId);
+      if (!quiz) {
+        return;
+      }
+
       const gamePin = generatePinCode();
-      const game: Game = {
+      const game: IGame = {
         pin: gamePin,
         host: socket.id,
         players: [],
-        questions: DUMMY_QUESTIONS,
+        questions: quiz.questions,
         currentQuestionIndex: -1,
         gettingAnswers: false,
         questionTime: 0,
@@ -51,12 +60,12 @@ export const configSocket = (httpServer: Server) => {
         return;
       }
 
-      const player: Player = {
+      const player: IPlayer = {
         id: socket.id,
         nickname: nickname,
         score: 0,
       };
-      io.to(game.host).emit("playerJoined", player);
+      io?.to(game.host).emit("playerJoined", player);
       game.players.push({ ...player, round: { score: 0 } });
       socket.join(`room-${pin}`);
       socket.emit("joinSuccess", pin);
@@ -79,14 +88,14 @@ export const configSocket = (httpServer: Server) => {
 
       const currentQuestionIndex = ++game.currentQuestionIndex;
       game.players = game.players.map((p) => ({ ...p, round: { score: 0 } }));
-      io.to(`room-${pin}`).emit(
+      io?.to(`room-${pin}`).emit(
         "prepareQuestion",
         currentQuestionIndex,
         game.questions[currentQuestionIndex].answers.length
       );
 
       setTimeout(() => {
-        io.to(`room-${pin}`).emit("startQuestion");
+        io?.to(`room-${pin}`).emit("startQuestion");
         game.gettingAnswers = true;
         game.questionTime = Date.now();
         setTimeout(() => {
@@ -106,9 +115,9 @@ export const configSocket = (httpServer: Server) => {
       }
 
       const game = games.find((g) => g.pin === pin);
-      const currentQuestion = game.questions[game.currentQuestionIndex];
+      const currentQuestion = game?.questions[game.currentQuestionIndex];
       if (
-        !game ||
+        !currentQuestion ||
         !game.gettingAnswers ||
         index < 0 ||
         index > currentQuestion.answers.length - 1
@@ -144,13 +153,13 @@ export const configSocket = (httpServer: Server) => {
         const chosenAnswerIndex = player.round.chosenAnswerIndex;
         const correct =
           chosenAnswerIndex !== undefined
-            ? currentQuestion.answers[player.round.chosenAnswerIndex].correct
+            ? currentQuestion.answers[chosenAnswerIndex].correct
             : false;
         player.score += player.round.score;
-        io.to(player.id).emit("revealResult", correct, player.round.score);
+        io?.to(player.id).emit("revealResult", correct, player.round.score);
       });
 
-      io.to(game.host).emit(
+      io?.to(game.host).emit(
         "revealAnswers",
         game.players.map((p) => ({
           id: p.id,
@@ -188,10 +197,10 @@ export const configSocket = (httpServer: Server) => {
     }
 
     const pin = match[1];
-    const sockets = await io.in(room).fetchSockets();
+    const sockets = await io?.in(room).fetchSockets();
 
     const gameIndex = games.findIndex((g) => g.pin === pin);
-    if (gameIndex === -1) {
+    if (!sockets || gameIndex === -1) {
       return;
     }
 
@@ -201,7 +210,7 @@ export const configSocket = (httpServer: Server) => {
       (games[gameIndex].currentQuestionIndex >= 0 && sockets.length <= 1)
     ) {
       games.splice(gameIndex, 1);
-      io.to(room).emit("gameDisconnected");
+      io?.to(room).emit("gameDisconnected");
       sockets.forEach((s) => s.leave(room));
     }
   });

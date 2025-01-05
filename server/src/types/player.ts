@@ -1,11 +1,11 @@
-interface Player {
+interface IPlayer {
   id: string;
   nickname: string;
   score: number;
 }
 
-export interface PlayerSession extends Player {
+export interface IPlayerSession extends IPlayer {
   round: { score: number; chosenAnswerIndex?: number };
 }
 
-export default Player;
+export default IPlayer;

@@ -13,7 +13,7 @@ export interface ServerToClientEvents {
 }
 
 export interface ClientToServerEvents {
-  gameCreate: () => void;
+  gameCreate: (quizId: string) => void;
   playerJoin: (pin: string, nickname: string) => void;
   nextQuestion: (pin: string) => void;
   playerAnswer: (pin: string, answerIndex: number) => void;
