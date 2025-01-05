@@ -5,7 +5,7 @@ import { IClientToServerEvents, IServerToClientEvents } from "socket";
 import IGame from "game";
 import generatePinCode from "./utils/generatePinCode";
 import calculateScore from "./utils/calculateScore";
-import Quiz from "./models/Quiz";
+import QuizService from "./Services/QuizService";
 
 const PREPARE_QUESTION_TIMEOUT = 5000;
 const QUESTION_TIMEOUT = 10000;
@@ -25,7 +25,7 @@ export const configSocket = (httpServer: Server) => {
         return;
       }
 
-      const quiz = await Quiz.findById(quizId);
+      const quiz = await QuizService.getQuiz(quizId);
       if (!quiz) {
         return;
       }

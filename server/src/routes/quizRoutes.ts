@@ -3,8 +3,12 @@ import QuizController from "../controllers/QuizController";
 
 const router = Router();
 
-router.get("/", QuizController.getQuizzes);
-router.get("/:quizId", QuizController.getQuiz);
-router.post("/", QuizController.postQuiz);
+router.route("/").get(QuizController.getQuizzes).post(QuizController.postQuiz);
+
+router
+  .route("/:quizId")
+  .get(QuizController.getQuiz)
+  .put(QuizController.putQuiz)
+  .delete(QuizController.deleteQuiz);
 
 export default router;
