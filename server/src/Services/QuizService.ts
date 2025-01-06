@@ -1,4 +1,4 @@
-import IQuiz from "quiz";
+import IQuiz, { IQuizInput } from "quiz";
 import Quiz from "../models/Quiz";
 
 const getQuizzes = async (): Promise<IQuiz[]> => {
@@ -13,13 +13,16 @@ const getQuiz = async (id: string): Promise<IQuiz | null> => {
   return quiz;
 };
 
-const createQuiz = async (quizInput: IQuiz): Promise<IQuiz> => {
+const createQuiz = async (quizInput: IQuizInput): Promise<IQuiz> => {
   const quiz = await Quiz.create(quizInput);
 
   return quiz;
 };
 
-const updateQuiz = async (id: string, quizInput: IQuiz): Promise<IQuiz> => {
+const updateQuiz = async (
+  id: string,
+  quizInput: IQuizInput
+): Promise<IQuiz> => {
   const quiz = await Quiz.findByIdAndUpdate(id, quizInput, {
     new: true,
     runValidators: true,

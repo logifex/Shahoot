@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import IQuiz from "quiz";
+import { NextFunction, Request, Response } from "express";
+import IQuiz, { IQuizInput } from "quiz";
 import QuizService from "../Services/QuizService";
 
 const getQuizzes = async (req: Request, res: Response<IQuiz[]>) => {
@@ -8,13 +8,16 @@ const getQuizzes = async (req: Request, res: Response<IQuiz[]>) => {
   res.status(200).json(quizzes);
 };
 
-const getQuiz = async (req: Request, res: Response<IQuiz>) => {
+const getQuiz = async (
+  req: Request,
+  res: Response<IQuiz>,
+  next: NextFunction
+) => {
   const { quizId } = req.params;
   const quiz = await QuizService.getQuiz(quizId);
 
   if (!quiz) {
-    res.status(404).send();
-    return;
+    return next();
   }
 
   res.status(200).json(quiz);
@@ -22,7 +25,12 @@ const getQuiz = async (req: Request, res: Response<IQuiz>) => {
 
 const postQuiz = async (req: Request, res: Response<IQuiz>) => {
   const { body } = req;
-  const quiz = await QuizService.createQuiz(body);
+
+  const quizInput: IQuizInput = {
+    title: body.title,
+    questions: body.questions,
+  };
+  const quiz = await QuizService.createQuiz(quizInput);
 
   res.status(201).json(quiz);
 };
@@ -31,7 +39,11 @@ const putQuiz = async (req: Request, res: Response<IQuiz>) => {
   const { quizId } = req.params;
   const { body } = req;
 
-  const quiz = await QuizService.updateQuiz(quizId, body);
+  const quizInput: IQuizInput = {
+    title: body.title,
+    questions: body.questions,
+  };
+  const quiz = await QuizService.updateQuiz(quizId, quizInput);
 
   res.status(200).json(quiz);
 };
