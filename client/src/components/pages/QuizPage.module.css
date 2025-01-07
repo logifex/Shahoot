@@ -1,0 +1,63 @@
+.quiz-details {
+  text-align: center;
+  padding: 2rem;
+  background-color: #f1f1f1;
+  margin-bottom: 2rem;
+}
+
+.quiz-details h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.quiz-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.edit-btn,
+.delete-btn,
+.host-btn {
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+}
+
+.host-btn {
+  background-color: var(--primary-color);
+}
+
+.edit-btn {
+  background-color: #008cba;
+}
+
+.delete-btn {
+  background-color: #f44336;
+}
+
+.host-btn:hover {
+  background-color: var(--primary-hover);
+}
+
+.edit-btn:hover {
+  background-color: #0078a0;
+}
+
+.delete-btn:hover {
+  background-color: #d7372f;
+}
+
+.questions {
+  padding: 2rem;
+}
+
+.questions h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
