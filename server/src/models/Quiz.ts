@@ -12,7 +12,7 @@ const quizSchema = new Schema({
     type: String,
     required: true,
     trim: true,
-    minLength: 2,
+    minLength: 1,
     maxlength: 120,
   },
   questions: {

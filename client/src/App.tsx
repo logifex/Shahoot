@@ -5,6 +5,7 @@ import Host from "./components/game/host/Host";
 import MainLayout from "./components/layout/MainLayout";
 import QuizzesPage from "./components/pages/QuizzesPage";
 import QuizPage from "./components/pages/QuizPage";
+import QuizCreator from "./components/pages/QuizCreator";
 
 function App() {
   return (
@@ -13,6 +14,10 @@ function App() {
         <Routes>
           <Route path="/" element={<MainLayout />}>
             <Route index element={<QuizzesPage />} />
+            <Route path="creator">
+              <Route index element={<QuizCreator />} />
+              <Route path=":quizId" element={<QuizCreator />} />
+            </Route>
             <Route path="quiz/:quizId" element={<QuizPage />} />
           </Route>
           <Route path="play">

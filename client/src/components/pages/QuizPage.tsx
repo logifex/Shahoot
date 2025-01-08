@@ -33,6 +33,10 @@ const QuizPage = () => {
     });
   };
 
+  const handleEdit = async () => {
+    navigate(`/creator/${quizId}`);
+  };
+
   const handleDelete = async () => {
     await QuizService.deleteQuiz(quiz._id);
     navigate("/");
@@ -50,7 +54,11 @@ const QuizPage = () => {
           >
             Host
           </button>
-          <button className={styles["edit-btn"]} type="button">
+          <button
+            className={styles["edit-btn"]}
+            type="button"
+            onClick={handleEdit}
+          >
             Edit
           </button>
           <button

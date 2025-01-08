@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import IQuiz, { IQuizInput } from "quiz";
-import QuizService from "../Services/QuizService";
+import QuizService from "../services/QuizService";
 
 const getQuizzes = async (req: Request, res: Response<IQuiz[]>) => {
   const quizzes = await QuizService.getQuizzes();

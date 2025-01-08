@@ -1,0 +1,14 @@
+.question-item {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f5f6fa;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}

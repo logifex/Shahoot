@@ -2,8 +2,12 @@ import { Schema } from "mongoose";
 import { answerSchema } from "./Answer";
 import IAnswer from "answer";
 
-const answersLengthValidator = (answers: IAnswer[]) => {
-  return answers.length >= 2 && answers.length <= 4;
+const answersValidator = (answers: IAnswer[]) => {
+  return (
+    answers.length >= 2 &&
+    answers.length <= 4 &&
+    !!answers.find((a) => a.correct)
+  );
 };
 
 export const questionSchema = new Schema(
@@ -12,15 +16,16 @@ export const questionSchema = new Schema(
       type: String,
       required: true,
       trim: true,
-      minLength: 2,
+      minLength: 1,
       maxlength: 120,
     },
     answers: {
       type: [answerSchema],
       required: true,
       validate: {
-        validator: answersLengthValidator,
-        message: "A question must have between 2 and 4 answers.",
+        validator: answersValidator,
+        message:
+          "A question must have between 2 and 4 answers and at least one correct answer.",
       },
     },
   },

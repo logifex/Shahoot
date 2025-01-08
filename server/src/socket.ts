@@ -5,7 +5,7 @@ import { IClientToServerEvents, IServerToClientEvents } from "socket";
 import IGame from "game";
 import generatePinCode from "./utils/generatePinCode";
 import calculateScore from "./utils/calculateScore";
-import QuizService from "./Services/QuizService";
+import QuizService from "./services/QuizService";
 
 const PREPARE_QUESTION_TIMEOUT = 5000;
 const QUESTION_TIMEOUT = 10000;
