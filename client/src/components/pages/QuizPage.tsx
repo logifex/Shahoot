@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import QuizService from "../../services/QuizService";
 import { createSearchParams, useNavigate, useParams } from "react-router";
 import styles from "./QuizPage.module.css";
 import Quiz from "../../types/quiz";
 import QuestionCard from "../QuestionCard/QuestionCard";
+import AuthContext from "../../context/AuthContext";
 
 const QuizPage = () => {
   const { quizId } = useParams() as { quizId: string };
   const [quiz, setQuiz] = useState<Quiz>();
+
+  const { userData } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -38,14 +41,21 @@ const QuizPage = () => {
   };
 
   const handleDelete = async () => {
-    await QuizService.deleteQuiz(quiz._id);
+    if (!userData) {
+      return;
+    }
+
+    await QuizService.deleteQuiz(quiz._id, userData.token);
     navigate("/");
   };
+
+  const quizCreator = quiz.user as { _id: string; username: string };
 
   return (
     <>
       <section className={styles["quiz-details"]}>
         <h1>{quiz.title}</h1>
+        {<p>By {quizCreator.username}</p>}
         <div className={styles["quiz-actions"]}>
           <button
             className={styles["host-btn"]}

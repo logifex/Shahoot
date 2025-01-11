@@ -1,7 +1,7 @@
-import { model, Schema } from "mongoose";
-import IQuiz from "quiz";
+import { model, Schema, Types } from "mongoose";
 import { questionSchema } from "./Question";
-import IQuestion from "question";
+import IQuestion from "../types/question";
+import IQuiz from "../types/quiz";
 
 const questionsLengthValidator = (questions: IQuestion[]) => {
   return questions.length > 0 && questions.length < 100;
@@ -14,6 +14,11 @@ const quizSchema = new Schema({
     trim: true,
     minLength: 1,
     maxlength: 120,
+  },
+  user: {
+    type: Types.ObjectId,
+    ref: "User",
+    required: true,
   },
   questions: {
     type: [questionSchema],

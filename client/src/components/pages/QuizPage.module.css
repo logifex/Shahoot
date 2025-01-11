@@ -7,7 +7,7 @@
 
 .quiz-details h1 {
   font-size: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .quiz-actions {
@@ -33,7 +33,7 @@
 }
 
 .edit-btn {
-  background-color: #008cba;
+  background-color: var(--secondary-color);
 }
 
 .delete-btn {
@@ -45,7 +45,7 @@
 }
 
 .edit-btn:hover {
-  background-color: #0078a0;
+  background-color: var(--secondary-hover);
 }
 
 .delete-btn:hover {

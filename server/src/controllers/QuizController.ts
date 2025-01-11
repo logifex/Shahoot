@@ -1,23 +1,25 @@
-import { NextFunction, Request, Response } from "express";
-import IQuiz, { IQuizInput } from "quiz";
+import { Request, Response } from "express";
 import QuizService from "../services/QuizService";
+import IQuiz, { IQuizInput } from "../types/quiz";
+import QuizNotFound from "../errors/QuizNotFound";
 
 const getQuizzes = async (req: Request, res: Response<IQuiz[]>) => {
-  const quizzes = await QuizService.getQuizzes();
+  const user = req.user;
+  if (!user) {
+    throw new Error("No user");
+  }
+
+  const quizzes = await QuizService.getQuizzes(user._id.toString());
 
   res.status(200).json(quizzes);
 };
 
-const getQuiz = async (
-  req: Request,
-  res: Response<IQuiz>,
-  next: NextFunction
-) => {
+const getQuiz = async (req: Request, res: Response<IQuiz>) => {
   const { quizId } = req.params;
   const quiz = await QuizService.getQuiz(quizId);
 
   if (!quiz) {
-    return next();
+    throw new QuizNotFound();
   }
 
   res.status(200).json(quiz);
@@ -26,11 +28,16 @@ const getQuiz = async (
 const postQuiz = async (req: Request, res: Response<IQuiz>) => {
   const { body } = req;
 
+  const user = req.user;
+  if (!user) {
+    throw new Error("No user");
+  }
+
   const quizInput: IQuizInput = {
     title: body.title,
     questions: body.questions,
   };
-  const quiz = await QuizService.createQuiz(quizInput);
+  const quiz = await QuizService.createQuiz(quizInput, user._id.toString());
 
   res.status(201).json(quiz);
 };

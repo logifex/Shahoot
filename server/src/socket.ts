@@ -1,11 +1,11 @@
 import { Server as SocketServer } from "socket.io";
 import { Server } from "http";
-import IPlayer from "player";
-import { IClientToServerEvents, IServerToClientEvents } from "socket";
-import IGame from "game";
 import generatePinCode from "./utils/generatePinCode";
 import calculateScore from "./utils/calculateScore";
 import QuizService from "./services/QuizService";
+import IGame from "./types/game";
+import { IClientToServerEvents, IServerToClientEvents } from "./types/socket";
+import IPlayer from "./types/player";
 
 const PREPARE_QUESTION_TIMEOUT = 5000;
 const QUESTION_TIMEOUT = 10000;

@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 import { answerSchema } from "./Answer";
-import IAnswer from "answer";
+import IAnswer from "../types/answer";
 
 const answersValidator = (answers: IAnswer[]) => {
   return (

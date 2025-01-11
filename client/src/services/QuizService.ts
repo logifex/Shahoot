@@ -4,8 +4,12 @@ import Quiz, { QuizInput } from "../types/quiz";
 const BASE_URL = import.meta.env.VITE_SERVER_URL;
 
 const QuizService = {
-  getQuizzes: async (): Promise<Quiz[]> => {
-    const quizzes: Quiz[] = (await axios.get(`${BASE_URL}/quiz`)).data;
+  getQuizzes: async (token: string): Promise<Quiz[]> => {
+    const quizzes: Quiz[] = (
+      await axios.get(`${BASE_URL}/quiz`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+    ).data;
 
     return quizzes;
   },
@@ -14,18 +18,32 @@ const QuizService = {
 
     return quiz;
   },
-  createQuiz: async (quizInput: QuizInput): Promise<Quiz> => {
-    const quiz: Quiz = (await axios.post(`${BASE_URL}/quiz`, quizInput)).data;
+  createQuiz: async (quizInput: QuizInput, token: string): Promise<Quiz> => {
+    const quiz: Quiz = (
+      await axios.post(`${BASE_URL}/quiz`, quizInput, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+    ).data;
 
     return quiz;
   },
-  updateQuiz: async (quidId: string, quizInput: QuizInput): Promise<Quiz> => {
-    const quiz: Quiz = (await axios.put(`${BASE_URL}/quiz/${quidId}`, quizInput)).data;
+  updateQuiz: async (
+    quidId: string,
+    quizInput: QuizInput,
+    token: string
+  ): Promise<Quiz> => {
+    const quiz: Quiz = (
+      await axios.put(`${BASE_URL}/quiz/${quidId}`, quizInput, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+    ).data;
 
     return quiz;
   },
-  deleteQuiz: async (quizId: string) => {
-    await axios.delete(`${BASE_URL}/quiz/${quizId}`);
+  deleteQuiz: async (quizId: string, token: string) => {
+    await axios.delete(`${BASE_URL}/quiz/${quizId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
   },
 };
 

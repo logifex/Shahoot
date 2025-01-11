@@ -1,17 +1,21 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./QuizCreator.module.css";
 import { QuizInput } from "../../types/quiz";
 import { useNavigate, useParams } from "react-router";
 import QuizService from "../../services/QuizService";
 import QuestionForm from "../QuizForm/QuestionForm";
 import Question from "../../types/question";
-import LabelInput from "../QuizForm/LabelInput";
+import LabelInput from "../ui/LabelInput/LabelInput";
+import AuthContext from "../../context/AuthContext";
 
 const MAX_TITLE_LENGTH = 120;
 const MAX_QUESTION_AMOUNT = 99;
 
 const QuizCreator = () => {
+  const { userData } = useContext(AuthContext);
+
   const navigate = useNavigate();
+
   const { quizId } = useParams() as { quizId?: string };
 
   const [quizInput, setQuizInput] = useState<QuizInput>({
@@ -87,6 +91,10 @@ const QuizCreator = () => {
     setQuizInput((prevQuiz) => ({ ...prevQuiz, title: e.target.value }));
   };
 
+  if (!userData) {
+    return;
+  }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -101,10 +109,10 @@ const QuizCreator = () => {
     };
 
     if (quizId) {
-      await QuizService.updateQuiz(quizId, newQuiz);
+      await QuizService.updateQuiz(quizId, newQuiz, userData.token);
       navigate(`/quiz/${quizId}`);
     } else {
-      const createdQuiz = await QuizService.createQuiz(newQuiz);
+      const createdQuiz = await QuizService.createQuiz(newQuiz, userData.token);
       navigate(`/quiz/${createdQuiz._id}`);
     }
   };

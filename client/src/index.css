@@ -8,6 +8,8 @@ body {
   box-sizing: border-box;
   --primary-color: #1abc9c;
   --primary-hover: #159a84;
+  --secondary-color: #008cba;
+  --secondary-hover: #0078a0;
 }
 
 * {
@@ -45,4 +47,17 @@ h6 {
   align-items: center;
   justify-content: center;
   height: 100%;
+}
+
+.page-message {
+  padding: 1rem;
+  text-align: center;
+}
+
+.link {
+  color: #007bff;
+}
+
+.link:hover {
+  color: #0056b3;
 }

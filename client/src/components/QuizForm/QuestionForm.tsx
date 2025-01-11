@@ -1,5 +1,5 @@
 import Question from "../../types/question";
-import LabelInput from "./LabelInput";
+import LabelInput from "../ui/LabelInput/LabelInput";
 import styles from "./QuestionForm.module.css";
 
 type Props = {
@@ -38,10 +38,10 @@ const QuestionForm = ({
   };
 
   return (
-    <div className={styles["question-item"]}>
+    <fieldset className={styles["question-item"]}>
+      <legend>Question {number}</legend>
       <div className={formStyles["form-group"]}>
         <LabelInput
-          label={`Question ${number}`}
           type="text"
           required
           maxLength={MAX_QUESTION_LENGTH}
@@ -50,10 +50,10 @@ const QuestionForm = ({
         />
       </div>
       <div>
-        <p className={formStyles.label}>Answers</p>
+        <p className={styles.label}>Answers</p>
         <div className={styles.answers}>
           {question.answers.map((a, i) => (
-            <div>
+            <div key={i}>
               <LabelInput
                 type="text"
                 required={i <= 1}
@@ -81,7 +81,7 @@ const QuestionForm = ({
           Delete
         </button>
       )}
-    </div>
+    </fieldset>
   );
 };
 

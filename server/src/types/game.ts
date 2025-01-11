@@ -1,5 +1,5 @@
-import { IPlayerSession } from "player";
-import IQuestion from "question";
+import { IPlayerSession } from "./player";
+import IQuestion from "./question";
 
 interface IGame {
   pin: string;

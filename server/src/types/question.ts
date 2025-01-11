@@ -1,4 +1,4 @@
-import IAnswer from "answer";
+import IAnswer from "./answer";
 
 interface IQuestion {
   question: string;

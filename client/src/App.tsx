@@ -6,6 +6,10 @@ import MainLayout from "./components/layout/MainLayout";
 import QuizzesPage from "./components/pages/QuizzesPage";
 import QuizPage from "./components/pages/QuizPage";
 import QuizCreator from "./components/pages/QuizCreator";
+import ProtectedRouteLayout from "./components/layout/ProtectedRouteLayout";
+import Login from "./components/pages/Login";
+import Register from "./components/pages/Register";
+import VerificationAction from "./components/pages/VerificationAction";
 
 function App() {
   return (
@@ -13,11 +17,23 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<MainLayout />}>
-            <Route index element={<QuizzesPage />} />
-            <Route path="creator">
-              <Route index element={<QuizCreator />} />
-              <Route path=":quizId" element={<QuizCreator />} />
+            <Route element={<ProtectedRouteLayout />}>
+              <Route index element={<QuizzesPage />} />
+              <Route path="creator">
+                <Route index element={<QuizCreator />} />
+                <Route path=":quizId" element={<QuizCreator />} />
+              </Route>
             </Route>
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+            <Route
+              path="verify"
+              element={<VerificationAction action="verify" />}
+            />
+            <Route
+              path="cancel-verification"
+              element={<VerificationAction action="cancel" />}
+            />
             <Route path="quiz/:quizId" element={<QuizPage />} />
           </Route>
           <Route path="play">

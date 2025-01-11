@@ -1,5 +1,5 @@
-import IPlayer from "player";
-import IQuestion from "question";
+import IPlayer from "./player";
+import IQuestion from "./question";
 
 export interface IServerToClientEvents {
   gameCreated: (pin: string, questions: IQuestion[]) => void;

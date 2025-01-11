@@ -17,6 +17,7 @@
 .questions-section h3 {
   margin-top: 2rem;
   margin-bottom: 1rem;
+  font-size: 1.5rem;
 }
 
 .form-actions {
@@ -43,7 +44,7 @@
 }
 
 .btn-add {
-  background: #008cba;
+  background: var(--secondary-color);
   color: white;
 }
 
@@ -56,5 +57,5 @@
 }
 
 .btn-add:hover {
-  background: #0078a0;
+  background: var(--secondary-hover);
 }
