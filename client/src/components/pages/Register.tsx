@@ -6,6 +6,7 @@ import AuthService from "../../services/AuthService";
 import { AxiosError } from "axios";
 import BackendError from "../../types/error";
 import styles from "./Login.module.css";
+import ResendVerificationButton from "../ResendVerificationButton/ResendVerificationButton";
 
 const Register = () => {
   const { userData } = useContext(AuthContext);
@@ -18,6 +19,8 @@ const Register = () => {
     error: false,
   });
   const [apiError, setApiError] = useState<AxiosError<BackendError>>();
+  const [loading, setLoading] = useState(false);
+  const [completed, setCompleted] = useState(false);
 
   const navigate = useNavigate();
 
@@ -40,15 +43,17 @@ const Register = () => {
     }
 
     try {
+      setLoading(true);
       await AuthService.register(email, username, password);
-
-      navigate("/login");
+      setCompleted(true);
     } catch (err) {
       if (err instanceof AxiosError) {
         setApiError(err);
         return;
       }
       throw err;
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -60,6 +65,18 @@ const Register = () => {
     return apiError.response.data.errors.some((err) => err.path === field);
   };
 
+  if (completed) {
+    return (
+      <div className={styles.success}>
+        <p>
+          Registration successful! An email was sent to you. Please verify your
+          email to login.
+        </p>
+        <ResendVerificationButton username={username} />
+      </div>
+    );
+  }
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Register</h1>
@@ -69,7 +86,7 @@ const Register = () => {
             (apiError.response?.data.code === "USER_EXISTS" ? (
               <span>User with that email or username already exists.</span>
             ) : (
-              <span>"Error trying to register."</span>
+              <span>Error trying to register.</span>
             ))}
         </div>
       )}
@@ -127,7 +144,11 @@ const Register = () => {
             </small>
           )}
         </div>
-        <button className={styles["submit-btn"]} type="submit">
+        <button
+          className={styles["submit-btn"]}
+          type="submit"
+          disabled={loading}
+        >
           Register
         </button>
       </form>

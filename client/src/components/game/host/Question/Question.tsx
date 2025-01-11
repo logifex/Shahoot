@@ -20,7 +20,7 @@ const Question = ({ question, showAnswers, onNext }: Props) => {
       <div className={styles["answers-container"]}>
         <ol className={styles.answers}>
           {question.answers.map((a, i) => (
-            <li key={a.answer}>
+            <li key={i}>
               <Answer
                 key={a.answer}
                 text={a.answer}

@@ -7,6 +7,8 @@ import QuestionForm from "../QuizForm/QuestionForm";
 import Question from "../../types/question";
 import LabelInput from "../ui/LabelInput/LabelInput";
 import AuthContext from "../../context/AuthContext";
+import { AxiosError } from "axios";
+import BackendError from "../../types/error";
 
 const MAX_TITLE_LENGTH = 120;
 const MAX_QUESTION_AMOUNT = 99;
@@ -32,6 +34,7 @@ const QuizCreator = () => {
       },
     ],
   });
+  const [apiError, setApiError] = useState<AxiosError<BackendError>>();
 
   useEffect(() => {
     if (!quizId) {
@@ -98,8 +101,6 @@ const QuizCreator = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // TODO display errors
-
     const newQuiz: QuizInput = {
       ...quizInput,
       questions: quizInput.questions.map((q) => ({
@@ -108,18 +109,40 @@ const QuizCreator = () => {
       })),
     };
 
-    if (quizId) {
-      await QuizService.updateQuiz(quizId, newQuiz, userData.token);
-      navigate(`/quiz/${quizId}`);
-    } else {
-      const createdQuiz = await QuizService.createQuiz(newQuiz, userData.token);
-      navigate(`/quiz/${createdQuiz._id}`);
+    try {
+      if (quizId) {
+        await QuizService.updateQuiz(quizId, newQuiz, userData.token);
+        navigate(`/quiz/${quizId}`);
+      } else {
+        const createdQuiz = await QuizService.createQuiz(
+          newQuiz,
+          userData.token
+        );
+        navigate(`/quiz/${createdQuiz._id}`);
+      }
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        setApiError(err);
+      }
+      throw err;
     }
   };
+
+  const errors = apiError?.response?.data.errors;
+  const hasAnswersError =
+    errors && errors.some((e) => e.path.endsWith("answers"));
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>{quizId ? "Edit Quiz" : "Create Quiz"}</h1>
+      {apiError &&
+        (hasAnswersError ? (
+          <p className={styles["error-message"]}>
+            Make sure each question has at least one correct answer.
+          </p>
+        ) : (
+          <p className={styles["error-message"]}>Error trying to submit.</p>
+        ))}
       <form onSubmit={handleSubmit}>
         <div className={styles["form-group"]}>
           <LabelInput

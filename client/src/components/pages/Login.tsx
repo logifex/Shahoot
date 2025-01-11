@@ -49,7 +49,7 @@ const Login = () => {
           {apiError.status === 401 &&
             (apiError.response?.data.code === "NOT_VERIFIED" ? (
               <>
-                <span>You haven't verified your email yet.</span>
+                <span>You haven't verified your email yet. </span>
                 {lastUsername && (
                   <ResendVerificationButton username={lastUsername} />
                 )}
