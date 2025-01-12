@@ -1,4 +1,4 @@
-import { ValidationErrorResponse } from "src/types/error";
+import { ValidationErrorResponse } from "../types/error";
 import CustomError from "./CustomError";
 
 class ValidationError extends CustomError {

@@ -24,7 +24,7 @@ const QuizPage = () => {
   }, [quizId]);
 
   if (!quiz) {
-    return <p>No quiz</p>;
+    return <p className="page-message">No quiz found.</p>;
   }
 
   const handleHost = () => {
