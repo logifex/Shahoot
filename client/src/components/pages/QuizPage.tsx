@@ -64,20 +64,24 @@ const QuizPage = () => {
           >
             Host
           </button>
-          <button
-            className={styles["edit-btn"]}
-            type="button"
-            onClick={handleEdit}
-          >
-            Edit
-          </button>
-          <button
-            className={styles["delete-btn"]}
-            type="button"
-            onClick={handleDelete}
-          >
-            Delete
-          </button>
+          {quizCreator._id === userData?.user._id && (
+            <>
+              <button
+                className={styles["edit-btn"]}
+                type="button"
+                onClick={handleEdit}
+              >
+                Edit
+              </button>
+              <button
+                className={styles["delete-btn"]}
+                type="button"
+                onClick={handleDelete}
+              >
+                Delete
+              </button>
+            </>
+          )}
         </div>
       </section>
       <section className={styles.questions}>

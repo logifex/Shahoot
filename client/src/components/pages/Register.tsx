@@ -70,7 +70,7 @@ const Register = () => {
       <div className={styles.success}>
         <p>
           Registration successful! An email was sent to you. Please verify your
-          email to login.
+          email to login. Check your spam folder.
         </p>
         <ResendVerificationButton username={username} />
       </div>

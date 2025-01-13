@@ -1,3 +1,4 @@
+import { Socket } from "socket.io";
 import IPlayer from "./player";
 import IQuestion from "./question";
 
@@ -10,6 +11,7 @@ export interface IServerToClientEvents {
   revealAnswers: (players: IPlayer[]) => void;
   revealResult: (correct: boolean, score: number) => void;
   gameDisconnected: () => void;
+  error: (message: string) => void;
 }
 
 export interface IClientToServerEvents {
@@ -19,3 +21,5 @@ export interface IClientToServerEvents {
   playerAnswer: (pin: unknown, answerIndex: unknown) => void;
   skip: (pin: unknown) => void;
 }
+
+export type AppSocket = Socket<IClientToServerEvents, IServerToClientEvents>;

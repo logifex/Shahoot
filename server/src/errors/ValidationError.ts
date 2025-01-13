@@ -3,9 +3,9 @@ import CustomError from "./CustomError";
 
 class ValidationError extends CustomError {
   message: string;
-  errors: ValidationErrorResponse[];
+  errors?: ValidationErrorResponse[];
 
-  constructor(errors: ValidationErrorResponse[], message: string = "") {
+  constructor(errors?: ValidationErrorResponse[], message: string = "") {
     super(message);
     this.name = "ValidationError";
     this.code = "VALIDATION_ERROR";

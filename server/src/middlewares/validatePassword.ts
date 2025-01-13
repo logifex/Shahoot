@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import ValidationError from "../errors/ValidationError";
 
-const regex = /^[A-Za-z0-9!@#$%^&*(),.?":{}|<>]{8,50}$/;
+const regex = /^[A-Za-z0-9!@#$%^&*(),.?":{}|<>_\-]{8,50}$/;
 
 const validatePassword = (req: Request, res: Response, next: NextFunction) => {
   const { password } = req.body;

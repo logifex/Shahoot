@@ -1,6 +1,8 @@
 import { useRef } from "react";
 import styles from "./JoinForm.module.css";
 
+const MAX_NICKNAME_LENGTH = 20;
+
 type Props = {
   onSubmit: (pin: string, nickname: string) => void;
 };
@@ -30,7 +32,12 @@ const JoinForm = ({ onSubmit }: Props) => {
         <form className={styles.form} onSubmit={handleSubmit}>
           <div>
             <input ref={pinRef} type="text" placeholder="Game PIN" />
-            <input ref={nameRef} type="text" placeholder="Nickname" />
+            <input
+              ref={nameRef}
+              type="text"
+              placeholder="Nickname"
+              maxLength={MAX_NICKNAME_LENGTH}
+            />
             <button type="submit">Enter</button>
           </div>
         </form>

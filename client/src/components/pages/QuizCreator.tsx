@@ -47,10 +47,15 @@ const QuizCreator = () => {
         title: fetchedQuiz.title,
         questions: fetchedQuiz.questions,
       });
+
+      const quizCreator = fetchedQuiz.user as { _id: string; username: string };
+      if (quizCreator._id !== userData?.user._id) {
+        navigate(`/quiz/${quizId}`);
+      }
     };
 
     fetchQuiz();
-  }, [quizId]);
+  }, [quizId, userData, navigate]);
 
   const handleAddQuestion = () => {
     setQuizInput((prevInput) => ({
