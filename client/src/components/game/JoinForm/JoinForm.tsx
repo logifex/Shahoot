@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import styles from "./JoinForm.module.css";
+import Button from "../../ui/Button/Button";
 
 const MAX_NICKNAME_LENGTH = 20;
 
@@ -24,10 +25,8 @@ const JoinForm = ({ onSubmit }: Props) => {
   const nameRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div className="flex-center">
-      <div>
-        <p>Shahoot!</p>
-      </div>
+    <div className="game-container">
+      <h2>Shahoot!</h2>
       <div>
         <form className={styles.form} onSubmit={handleSubmit}>
           <div>
@@ -38,7 +37,7 @@ const JoinForm = ({ onSubmit }: Props) => {
               placeholder="Nickname"
               maxLength={MAX_NICKNAME_LENGTH}
             />
-            <button type="submit">Enter</button>
+            <Button type="submit">Enter</Button>
           </div>
         </form>
       </div>

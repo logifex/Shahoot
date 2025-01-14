@@ -1,16 +1,12 @@
 .form button,
 .form input {
   width: 100%;
-}
-
-.form button {
   margin-top: 0.5rem;
-  display: block;
 }
 
 .form input {
   padding: 0.7rem 0.5rem;
-  background-color: white;
+  background-color: #ffffff;
   text-align: center;
   font-size: 1rem;
   font-weight: bold;
@@ -23,8 +19,8 @@
 }
 
 .form button {
+  display: block;
+  color: #ffffff;
   background-color: rgb(50, 50, 50);
-  color: white;
   padding: 0.7rem;
-  font-size: 1rem;
 }

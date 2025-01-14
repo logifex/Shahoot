@@ -7,6 +7,7 @@ import { AxiosError } from "axios";
 import BackendError from "../../types/error";
 import ResendVerificationButton from "../ResendVerificationButton/ResendVerificationButton";
 import styles from "./Login.module.css";
+import Button from "../ui/Button/Button";
 
 const Login = () => {
   const { userData, signIn } = useContext(AuthContext);
@@ -81,13 +82,9 @@ const Login = () => {
             value={password}
           />
         </div>
-        <button
-          className={styles["submit-btn"]}
-          type="submit"
-          disabled={!username || !password}
-        >
+        <Button variant="primary" type="submit" disabled={!username || !password}>
           Login
-        </button>
+        </Button>
       </form>
       <div className={styles.register}>
         <p>Don't have an account yet?</p>

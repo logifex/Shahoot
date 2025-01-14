@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
+import styles from "./Timer.module.css";
 
-const useTimer = (time: number) => {
+type Props = {
+  time: number;
+};
+
+const Timer = ({ time }: Props) => {
   const [timer, setTimer] = useState(time);
 
   useEffect(() => {
@@ -17,7 +22,11 @@ const useTimer = (time: number) => {
     };
   }, [timer]);
 
-  return timer;
+  return (
+    <div className={styles.timer}>
+      <p>{timer}</p>
+    </div>
+  );
 };
 
-export default useTimer;
+export default Timer;

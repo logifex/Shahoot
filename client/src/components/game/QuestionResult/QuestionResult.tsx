@@ -7,7 +7,7 @@ const QuestionResult = ({ correct, score }: Props) => {
     : styles["container-incorrect"];
 
   return (
-    <div className={`flex-center ${containerClass}`}>
+    <div className={`game-container ${containerClass}`}>
       <p className={styles["result-text"]}>
         {correct ? `Correct! Score +${score}` : "Incorrect..."}
       </p>

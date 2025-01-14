@@ -13,6 +13,11 @@
   margin-bottom: 2rem;
 }
 
+.answer {
+  display: flex;
+  gap: 0.2rem
+}
+
 .label {
   font-weight: bold;
   margin-bottom: 0.5rem;

@@ -4,7 +4,7 @@ type Props = { nickname: string };
 
 const Waiting = ({ nickname }: Props) => {
   return (
-    <div className="flex-center">
+    <div className="game-container">
       <p className={styles.nickname}>{nickname}</p>
       <p className={styles.message}>You're in! Wait for the game to start.</p>
     </div>

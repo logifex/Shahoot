@@ -5,6 +5,7 @@ import styles from "./QuizPage.module.css";
 import Quiz from "../../types/quiz";
 import QuestionCard from "../QuestionCard/QuestionCard";
 import AuthContext from "../../context/AuthContext";
+import Button from "../ui/Button/Button";
 
 const QuizPage = () => {
   const { quizId } = useParams() as { quizId: string };
@@ -57,29 +58,32 @@ const QuizPage = () => {
         <h1>{quiz.title}</h1>
         {<p>By {quizCreator.username}</p>}
         <div className={styles["quiz-actions"]}>
-          <button
-            className={styles["host-btn"]}
+          <Button
+            variant="primary"
+            className={styles.btn}
             type="button"
             onClick={handleHost}
           >
             Host
-          </button>
+          </Button>
           {quizCreator._id === userData?.user._id && (
             <>
-              <button
-                className={styles["edit-btn"]}
+              <Button
+                variant="secondary"
+                className={styles.btn}
                 type="button"
                 onClick={handleEdit}
               >
                 Edit
-              </button>
-              <button
-                className={styles["delete-btn"]}
+              </Button>
+              <Button
+                variant="danger"
+                className={styles.btn}
                 type="button"
                 onClick={handleDelete}
               >
                 Delete
-              </button>
+              </Button>
             </>
           )}
         </div>

@@ -1,12 +1,16 @@
 .scoreboard {
-    width: 75%;
+  width: 100%;
+  max-width: 600px;
+  gap: 1rem;
 }
 
 .score-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem;
-    font-size: 2rem;
-    border: 1px solid black;
-    margin: 1rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

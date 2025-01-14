@@ -1,14 +1,15 @@
 .question-card {
-  background-color: white;
+  background-color: #ffffff;
   border: 1px solid #ddd;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
-  margin-bottom: 1rem;
+  max-width: 48rem;
+  width: 100%;
 }
 
 .question-card h3 {
-    margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .answers {

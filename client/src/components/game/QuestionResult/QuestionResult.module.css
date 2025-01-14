@@ -1,11 +1,14 @@
 .container-correct {
-  background-color: green;
+  background-color: #4caf50;
+  color: #ffffff;
 }
 
 .container-incorrect {
-  background-color: red;
+  background-color: #f44336;
+  color: #ffffff;
 }
 
 .result-text {
-  font-size: 1.5rem;
+  font-size: 2rem;
+  font-weight: bold;
 }

@@ -4,9 +4,10 @@ import styles from "./PlayerList.module.css";
 type Props = { players: Player[] };
 
 const PlayerList = ({ players }: Props) => {
-  return (
+  return players.length === 0 ? (
+    <p className={styles.message}>No players have joined yet.</p>
+  ) : (
     <ul>
-      {players.length === 0 && <p className={styles.message}>No players have joined yet.</p>}
       {players.map((p) => (
         <li key={p.id}>
           <div className={styles.player}>

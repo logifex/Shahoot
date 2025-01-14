@@ -1,12 +1,12 @@
 import Player from "../../../../types/player";
-import PrimaryButton from "../../../ui/PrimaryButton/PrimaryButton";
+import Button from "../../../ui/Button/Button";
 import styles from "./Leaderboard.module.css";
 
 type Props = { players: Player[]; hasNext: boolean; onNext: () => void };
 
 const Leaderboard = ({ players, hasNext, onNext }: Props) => {
   return (
-    <div className="flex-center">
+    <div className="game-container">
       <ol className={styles.scoreboard}>
         {players
           .sort((a, b) => b.score - a.score)
@@ -20,9 +20,9 @@ const Leaderboard = ({ players, hasNext, onNext }: Props) => {
           ))}
       </ol>
       {hasNext && (
-        <PrimaryButton type="button" onClick={onNext}>
+        <Button variant="primary" type="button" onClick={onNext}>
           Next
-        </PrimaryButton>
+        </Button>
       )}
     </div>
   );

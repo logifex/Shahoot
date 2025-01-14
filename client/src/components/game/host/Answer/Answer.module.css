@@ -1,24 +1,28 @@
 .container {
-    font-size: 1.2rem;
-    padding: 1rem;
+  font-size: 1.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  text-align: center;
 }
 
 .correct {
-    font-weight: bold;
+  font-weight: bold;
+  color: #ffffff;
 }
 
 .first-answer {
-    background-color: #e21b3c;
+  background-color: #e21b3c;
 }
 
 .second-answer {
-    background-color: #1368ce;
+  background-color: #1368ce;
 }
 
 .third-answer {
-    background-color: #d89e00;
+  background-color: #d89e00;
 }
 
 .fourth-answer {
-    background-color: #26890c;
+  background-color: #26890c;
 }

@@ -1,5 +1,6 @@
 import Question from "../../types/question";
 import LabelInput from "../ui/LabelInput/LabelInput";
+import Button from "../ui/Button/Button";
 import styles from "./QuestionForm.module.css";
 
 type Props = {
@@ -53,7 +54,7 @@ const QuestionForm = ({
         <p className={styles.label}>Answers</p>
         <div className={styles.answers}>
           {question.answers.map((a, i) => (
-            <div key={i}>
+            <div className={styles.answer} key={i}>
               <LabelInput
                 type="text"
                 required={i <= 1}
@@ -73,13 +74,9 @@ const QuestionForm = ({
         </div>
       </div>
       {onDelete && (
-        <button
-          className={`${formStyles.btn} ${formStyles["btn-danger"]}`}
-          type="button"
-          onClick={onDelete}
-        >
+        <Button variant="danger" type="button" onClick={onDelete}>
           Delete
-        </button>
+        </Button>
       )}
     </fieldset>
   );

@@ -4,7 +4,7 @@ type Props = { question: string; questionNumber: number };
 
 const PrepareQuestion = ({ question, questionNumber }: Props) => {
   return (
-    <div className="flex-center">
+    <div className="game-container">
       <p className={styles["question-number-text"]}>
         Question {questionNumber}
       </p>

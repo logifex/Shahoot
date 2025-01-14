@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 import Quiz from "../../types/quiz";
 import styles from "./QuizCard.module.css";
+import Button from "../ui/Button/Button";
 
 type Props = { quiz: Quiz };
 
@@ -14,9 +15,9 @@ const QuizCard = ({ quiz }: Props) => {
   return (
     <div className={styles["quiz-card"]}>
       <h2>{quiz.title}</h2>
-      <button className={styles["view-btn"]} type="button" onClick={handleView}>
+      <Button variant="primary" type="button" onClick={handleView}>
         View
-      </button>
+      </Button>
     </div>
   );
 };

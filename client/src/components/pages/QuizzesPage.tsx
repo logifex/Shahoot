@@ -5,6 +5,7 @@ import Quiz from "../../types/quiz";
 import QuizCard from "../QuizCard/QuizCard";
 import { useNavigate } from "react-router";
 import AuthContext from "../../context/AuthContext";
+import Button from "../ui/Button/Button";
 
 const QuizzesPage = () => {
   const [quizzes, setQuizzes] = useState<Quiz[]>();
@@ -35,13 +36,14 @@ const QuizzesPage = () => {
       <section className={styles.hero}>
         <h1>Your Quizzes</h1>
         <p>Manage your quizzes or create new ones.</p>
-        <button
+        <Button
+          variant="inverted"
           className={styles["create-btn"]}
           type="button"
           onClick={handleCreate}
         >
           + Create New Quiz
-        </button>
+        </Button>
       </section>
       <section className={styles.quizzes}>
         {quizzes?.map((q) => (

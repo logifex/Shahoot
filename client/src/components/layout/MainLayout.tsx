@@ -2,6 +2,7 @@ import { Link, Outlet, useNavigate } from "react-router";
 import styles from "./MainLayout.module.css";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
+import Button from "../ui/Button/Button";
 
 const MainLayout = () => {
   const { userData, signOut } = useContext(AuthContext);
@@ -23,13 +24,14 @@ const MainLayout = () => {
           </Link>
           <div className={styles["user-info"]}>
             {userData && <p>Welcome, {userData.user.username}</p>}
-            <button
+            <Button
+              variant="inverted"
               className={styles["log-btn"]}
               type="button"
               onClick={userData ? signOut : handleLogin}
             >
               {userData ? "Logout" : "Login"}
-            </button>
+            </Button>
           </div>
         </nav>
       </header>

@@ -10,6 +10,9 @@ body {
   --primary-hover: #159a84;
   --secondary-color: #008cba;
   --secondary-hover: #0078a0;
+  --danger-color: #e74c3c;
+  --danger-hover: #c0392b;
+  --inverted-hover: #ddd;
 }
 
 * {
@@ -41,12 +44,14 @@ h6 {
   margin: 0;
 }
 
-.flex-center {
+.game-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  min-height: 100vh;
+  padding: 1rem;
+  gap: 1rem;
 }
 
 .page-message {

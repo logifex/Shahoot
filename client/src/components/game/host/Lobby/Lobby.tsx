@@ -1,6 +1,6 @@
 import socket from "../../../../config/socket";
 import Game from "../../../../types/game";
-import PrimaryButton from "../../../ui/PrimaryButton/PrimaryButton";
+import Button from "../../../ui/Button/Button";
 import styles from "./Lobby.module.css";
 import PlayerList from "../PlayerList/PlayerList";
 
@@ -14,9 +14,9 @@ const Lobby = ({ game }: Props) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`game-container ${styles.container}`}>
       <div className={styles["pin-container"]}>
-        <p>Game PIN:</p>
+        <p>Game PIN</p>
         <p className={styles["pin-text"]}>{game.pin}</p>
       </div>
       <div className={styles.lobby}>
@@ -26,9 +26,13 @@ const Lobby = ({ game }: Props) => {
             <h2>Shahoot!</h2>
           </div>
           <div className={styles.buttons}>
-            <PrimaryButton type="button" onClick={handleStart}>
+            <Button
+              variant="inverted"
+              type="button"
+              onClick={handleStart}
+            >
               Start Game
-            </PrimaryButton>
+            </Button>
           </div>
         </div>
         <section className={styles["players-container"]}>

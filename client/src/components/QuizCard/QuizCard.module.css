@@ -1,5 +1,5 @@
 .quiz-card {
-  background-color: white;
+  background-color: #ffffff;
   padding: 1.5rem;
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -10,17 +10,4 @@
 .quiz-card h2 {
   font-size: 1.25rem;
   margin-bottom: 1rem;
-}
-
-.view-btn {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.view-btn:hover {
-  background-color: var(--primary-hover);
 }

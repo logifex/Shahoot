@@ -1,7 +1,14 @@
 .button {
   font-size: 1.2rem;
-  padding: 1rem 3rem;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 10px;
   cursor: pointer;
+  width: 100%;
+}
+
+.button:hover {
+  transform: translateY(-0.2rem);
 }
 
 .first-answer {

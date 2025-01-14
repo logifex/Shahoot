@@ -9,6 +9,7 @@ import LabelInput from "../ui/LabelInput/LabelInput";
 import AuthContext from "../../context/AuthContext";
 import { AxiosError } from "axios";
 import BackendError from "../../types/error";
+import Button from "../ui/Button/Button";
 
 const MAX_TITLE_LENGTH = 120;
 const MAX_QUESTION_AMOUNT = 99;
@@ -177,31 +178,26 @@ const QuizCreator = () => {
               />
             ))}
           </div>
-          <button
-            className={`${styles.btn} ${styles["btn-add"]}`}
+          <Button
+            variant="secondary"
             type="button"
             onClick={handleAddQuestion}
             disabled={quizInput.questions.length >= MAX_QUESTION_AMOUNT}
           >
             + Add Question
-          </button>
+          </Button>
         </div>
         <div className={styles["form-actions"]}>
-          <button
-            className={`${styles.btn} ${styles["btn-primary"]}`}
-            type="submit"
-          >
-            Save Quiz
-          </button>
-          <button
-            className={`${styles.btn} ${styles["btn-danger"]}`}
+          <Button variant="primary" type="submit">Save Quiz</Button>
+          <Button
+            variant="danger"
             type="button"
             onClick={() => {
               navigate(quizId ? `/quiz/${quizId}` : "/");
             }}
           >
             Cancel
-          </button>
+          </Button>
         </div>
       </form>
     </div>

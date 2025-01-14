@@ -1,8 +1,8 @@
-import useTimer from "../../../../hooks/useTimer";
 import Answer from "../Answer/Answer";
 import QuestionType from "../../../../types/question";
 import styles from "./Question.module.css";
-import PrimaryButton from "../../../ui/PrimaryButton/PrimaryButton";
+import Button from "../../../ui/Button/Button";
+import Timer from "../../Timer/Timer";
 
 type Props = {
   question: QuestionType;
@@ -11,11 +11,9 @@ type Props = {
 };
 
 const Question = ({ question, showAnswers, onNext }: Props) => {
-  const timer = useTimer(10);
-
   return (
-    <div className="flex-center">
-      {!showAnswers && <p>{timer}</p>}
+    <div className="game-container">
+      {!showAnswers && <Timer time={10} />}
       <h2>{question.question}</h2>
       <div className={styles["answers-container"]}>
         <ol className={styles.answers}>
@@ -31,9 +29,9 @@ const Question = ({ question, showAnswers, onNext }: Props) => {
           ))}
         </ol>
       </div>
-      <PrimaryButton type="button" onClick={onNext}>
+      <Button variant="primary" type="button" onClick={onNext}>
         Next
-      </PrimaryButton>
+      </Button>
     </div>
   );
 };
