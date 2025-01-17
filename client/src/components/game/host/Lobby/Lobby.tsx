@@ -14,7 +14,7 @@ const Lobby = ({ game }: Props) => {
   };
 
   return (
-    <div className={`game-container ${styles.container}`}>
+    <div className={styles.container}>
       <div className={styles["pin-container"]}>
         <p>Game PIN</p>
         <p className={styles["pin-text"]}>{game.pin}</p>

@@ -15,7 +15,7 @@ const Answers = ({ amount, onAnswer }: Props) => {
   }
 
   return (
-    <div className="game-container">
+    <div className={styles.container}>
       <ol className={styles.answers}>{buttons}</ol>
     </div>
   );

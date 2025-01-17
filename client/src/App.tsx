@@ -14,34 +14,32 @@ import VerificationAction from "./components/pages/VerificationAction";
 function App() {
   return (
     <div className={styles["app-container"]}>
-      <main>
-        <Routes>
-          <Route path="/" element={<MainLayout />}>
-            <Route element={<ProtectedRouteLayout />}>
-              <Route index element={<QuizzesPage />} />
-              <Route path="creator">
-                <Route index element={<QuizCreator />} />
-                <Route path=":quizId" element={<QuizCreator />} />
-              </Route>
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route element={<ProtectedRouteLayout />}>
+            <Route index element={<QuizzesPage />} />
+            <Route path="creator">
+              <Route index element={<QuizCreator />} />
+              <Route path=":quizId" element={<QuizCreator />} />
             </Route>
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-            <Route
-              path="verify"
-              element={<VerificationAction action="verify" />}
-            />
-            <Route
-              path="cancel-verification"
-              element={<VerificationAction action="cancel" />}
-            />
-            <Route path="quiz/:quizId" element={<QuizPage />} />
           </Route>
-          <Route path="play">
-            <Route index element={<Player />} />
-            <Route path="host" element={<Host />} />
-          </Route>
-        </Routes>
-      </main>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route
+            path="verify"
+            element={<VerificationAction action="verify" />}
+          />
+          <Route
+            path="cancel-verification"
+            element={<VerificationAction action="cancel" />}
+          />
+          <Route path="quiz/:quizId" element={<QuizPage />} />
+        </Route>
+        <Route path="play">
+          <Route index element={<Player />} />
+          <Route path="host" element={<Host />} />
+        </Route>
+      </Routes>
     </div>
   );
 }

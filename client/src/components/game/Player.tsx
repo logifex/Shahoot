@@ -6,6 +6,8 @@ import Answers from "./Answers/Answers";
 import AnswerButton from "./AnswerButton/AnswerButton";
 import Waiting from "./Waiting/Waiting";
 import QuestionResult from "./QuestionResult/QuestionResult";
+import PlayerLayout from "./PlayerLayout/PlayerLayout";
+import useSocket from "../../hooks/useSocket";
 
 enum GameState {
   Waiting,
@@ -17,11 +19,14 @@ enum GameState {
 const Player = () => {
   const [pin, setPin] = useState<string>();
   const [nickname, setNickname] = useState<string>();
+  const [score, setScore] = useState(0);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answerAmount, setAnswerAmount] = useState(0);
   const [chosenAnswerIndex, setChosenAnswerIndex] = useState<number>();
   const [round, setRound] = useState<{ correct: boolean; score: number }>();
   const [gameState, setGameState] = useState<GameState>(GameState.Waiting);
+
+  useSocket();
 
   const handleJoin = (pin: string, nickname: string) => {
     socket.emit("playerJoin", pin, nickname);
@@ -45,9 +50,14 @@ const Player = () => {
       setGameState(GameState.Question);
     };
 
-    const revealResult = (correct: boolean, score: number) => {
+    const revealResult = (
+      correct: boolean,
+      score: number,
+      totalScore: number
+    ) => {
       setGameState(GameState.QuestionResults);
       setRound({ correct: correct, score: score });
+      setScore(totalScore);
     };
 
     const handleGameDisconnected = () => {
@@ -60,6 +70,7 @@ const Player = () => {
     socket.on("startQuestion", startQuestion);
     socket.on("revealResult", revealResult);
     socket.on("gameDisconnected", handleGameDisconnected);
+    socket.on("disconnect", handleGameDisconnected);
 
     return () => {
       socket.off("joinSuccess", handleJoined);
@@ -67,10 +78,11 @@ const Player = () => {
       socket.off("startQuestion", startQuestion);
       socket.off("revealResult", revealResult);
       socket.off("gameDisconnected", handleGameDisconnected);
+      socket.off("disconnect", handleGameDisconnected);
     };
   }, []);
 
-  if (!pin) {
+  if (!pin || !nickname) {
     return <JoinForm onSubmit={handleJoin} />;
   }
 
@@ -80,7 +92,11 @@ const Player = () => {
   };
 
   return (
-    <>
+    <PlayerLayout
+      nickname={nickname}
+      score={score}
+      questionNumber={questionIndex + 1}
+    >
       {gameState === GameState.Waiting && nickname && (
         <Waiting nickname={nickname} />
       )}
@@ -96,7 +112,7 @@ const Player = () => {
       {gameState === GameState.QuestionResults && (
         <QuestionResult correct={!!round?.correct} score={round?.score ?? 0} />
       )}
-    </>
+    </PlayerLayout>
   );
 };
 

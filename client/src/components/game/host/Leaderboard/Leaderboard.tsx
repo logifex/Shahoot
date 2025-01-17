@@ -6,7 +6,7 @@ type Props = { players: Player[]; hasNext: boolean; onNext: () => void };
 
 const Leaderboard = ({ players, hasNext, onNext }: Props) => {
   return (
-    <div className="game-container">
+    <>
       <ol className={styles.scoreboard}>
         {players
           .sort((a, b) => b.score - a.score)
@@ -24,7 +24,7 @@ const Leaderboard = ({ players, hasNext, onNext }: Props) => {
           Next
         </Button>
       )}
-    </div>
+    </>
   );
 };
 

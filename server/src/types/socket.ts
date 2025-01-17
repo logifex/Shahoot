@@ -8,8 +8,9 @@ export interface IServerToClientEvents {
   playerJoined: (player: IPlayer) => void;
   prepareQuestion: (index: number, amount: number) => void;
   startQuestion: () => void;
+  playerAnswered: () => void;
   revealAnswers: (players: IPlayer[]) => void;
-  revealResult: (correct: boolean, score: number) => void;
+  revealResult: (correct: boolean, score: number, totalScore: number) => void;
   gameDisconnected: () => void;
   error: (message: string) => void;
 }

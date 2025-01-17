@@ -8,6 +8,8 @@ import QuestionType from "../../../types/question";
 import Game from "../../../types/game";
 import Player from "../../../types/player";
 import { useSearchParams } from "react-router";
+import useSocket from "../../../hooks/useSocket";
+import HostLayout from "./HostLayout/HostLayout";
 
 enum GameState {
   Lobby,
@@ -25,6 +27,8 @@ const Host = () => {
   const [searchParams] = useSearchParams();
   const quizId = searchParams.get("quiz");
 
+  useSocket();
+
   useEffect(() => {
     if (!game && quizId) {
       const gameCreated = (newPin: string, questions: QuestionType[]) => {
@@ -32,7 +36,7 @@ const Host = () => {
           pin: newPin,
           players: [],
           questions: questions,
-          currentQuestionIndex: 0,
+          currentQuestionIndex: -1,
         });
       };
       socket.on("gameCreated", gameCreated);
@@ -83,6 +87,7 @@ const Host = () => {
     socket.on("startQuestion", startQuestion);
     socket.on("revealAnswers", revealAnswers);
     socket.on("gameDisconnected", handleGameDisconnected);
+    socket.on("disconnect", handleGameDisconnected);
 
     return () => {
       socket.off("playerJoined", handlePlayerJoined);
@@ -90,6 +95,7 @@ const Host = () => {
       socket.off("startQuestion", startQuestion);
       socket.off("revealAnswers", revealAnswers);
       socket.off("gameDisconnected", handleGameDisconnected);
+      socket.off("disconnect", handleGameDisconnected);
     };
   }, []);
 
@@ -112,7 +118,12 @@ const Host = () => {
   const currentQuestion = game.questions[game.currentQuestionIndex];
 
   return (
-    <>
+    <HostLayout
+      gamePin={game.pin}
+      questionNumber={game.currentQuestionIndex + 1}
+      questionAmount={game.questions.length}
+      showFooter={game.currentQuestionIndex !== -1}
+    >
       {gameState === GameState.Lobby && <Lobby game={game} />}
       {gameState === GameState.PrepareQuestion && (
         <PrepareQuestion
@@ -139,7 +150,7 @@ const Host = () => {
           onNext={handleNextQuestion}
         />
       )}
-    </>
+    </HostLayout>
   );
 };
 

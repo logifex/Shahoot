@@ -1,4 +1,29 @@
-.container > h2 {
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 800px;
+  width: 100%;
+  flex: 1;
+  gap: 1rem;
+  margin: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+}
+
+.answered {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.title {
   font-size: 2rem;
 }
 
@@ -14,5 +39,4 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   width: 100%;
-  max-width: 800px;
 }

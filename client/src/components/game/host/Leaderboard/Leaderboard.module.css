@@ -1,4 +1,5 @@
 .scoreboard {
+  padding: 0 1rem;
   width: 100%;
   max-width: 600px;
   gap: 1rem;

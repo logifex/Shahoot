@@ -6,8 +6,10 @@ const EXPIRY_TIME = 22 * 60 * 60 * 1000;
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
   const [userData, setUserData] = useState<{ token: string; user: User }>();
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    setReady(true);
     const userJson = localStorage.getItem("user-data");
     if (!userJson) {
       return;
@@ -53,6 +55,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const authContext: AuthContextType = {
     userData: userData,
+    ready: ready,
     signIn: signIn,
     signOut: signOut,
   };

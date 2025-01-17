@@ -6,9 +6,12 @@ import QuizCard from "../QuizCard/QuizCard";
 import { useNavigate } from "react-router";
 import AuthContext from "../../context/AuthContext";
 import Button from "../ui/Button/Button";
+import { AxiosError } from "axios";
 
 const QuizzesPage = () => {
   const [quizzes, setQuizzes] = useState<Quiz[]>();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<AxiosError>();
 
   const navigate = useNavigate();
 
@@ -20,8 +23,17 @@ const QuizzesPage = () => {
         return;
       }
 
-      const fetchedQuizzes = await QuizService.getQuizzes(userData.token);
-      setQuizzes(fetchedQuizzes);
+      try {
+        const fetchedQuizzes = await QuizService.getQuizzes(userData.token);
+        setQuizzes(fetchedQuizzes);
+      } catch (err) {
+        if (err instanceof AxiosError) {
+          setError(err);
+        }
+        throw err;
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchQuizzes();
@@ -46,6 +58,8 @@ const QuizzesPage = () => {
         </Button>
       </section>
       <section className={styles.quizzes}>
+        {!quizzes && loading && <p className="page-message">Loading...</p>}
+        {!quizzes && error && <p>Error loading quizzes</p>}
         {quizzes?.map((q) => (
           <QuizCard key={q._id} quiz={q} />
         ))}

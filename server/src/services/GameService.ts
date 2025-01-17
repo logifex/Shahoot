@@ -92,7 +92,9 @@ const revealAnswers = (pin: string) => {
         ? currentQuestion.answers[chosenAnswerIndex].correct
         : false;
     player.score += player.round.score;
-    getIo().to(player.id).emit("revealResult", correct, player.round.score);
+    getIo()
+      .to(player.id)
+      .emit("revealResult", correct, player.round.score, player.score);
   });
 
   getIo()
@@ -129,6 +131,7 @@ const submitAnswer = (
   ) {
     player.round.score = calculateScore(game.questionTime);
   }
+  getIo().to(game.host).emit("playerAnswered");
 };
 
 const removeGame = (pin: string) => {

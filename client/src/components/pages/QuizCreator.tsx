@@ -15,7 +15,7 @@ const MAX_TITLE_LENGTH = 120;
 const MAX_QUESTION_AMOUNT = 99;
 
 const QuizCreator = () => {
-  const { userData } = useContext(AuthContext);
+  const { ready, userData } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -36,6 +36,7 @@ const QuizCreator = () => {
     ],
   });
   const [apiError, setApiError] = useState<AxiosError<BackendError>>();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!quizId) {
@@ -43,11 +44,13 @@ const QuizCreator = () => {
     }
 
     const fetchQuiz = async () => {
+      setLoading(true);
       const fetchedQuiz = await QuizService.getQuiz(quizId);
       setQuizInput({
         title: fetchedQuiz.title,
         questions: fetchedQuiz.questions,
       });
+      setLoading(false);
 
       const quizCreator = fetchedQuiz.user as { _id: string; username: string };
       if (quizCreator._id !== userData?.user._id) {
@@ -55,8 +58,10 @@ const QuizCreator = () => {
       }
     };
 
-    fetchQuiz();
-  }, [quizId, userData, navigate]);
+    if (ready) {
+      fetchQuiz();
+    }
+  }, [quizId, ready, userData, navigate]);
 
   const handleAddQuestion = () => {
     setQuizInput((prevInput) => ({
@@ -149,57 +154,62 @@ const QuizCreator = () => {
         ) : (
           <p className={styles["error-message"]}>Error trying to submit.</p>
         ))}
-      <form onSubmit={handleSubmit}>
-        <div className={styles["form-group"]}>
-          <LabelInput
-            label="Title"
-            type="text"
-            required
-            maxLength={MAX_TITLE_LENGTH}
-            onChange={handleTitleChange}
-            value={quizInput.title}
-          />
-        </div>
-        <div className={styles["questions-section"]}>
-          <h3>Questions</h3>
-          <div>
-            {quizInput.questions.map((q, i) => (
-              <QuestionForm
-                key={i}
-                question={q}
-                number={i + 1}
-                onChange={(question) => handleQuestionChange(i, question)}
-                onDelete={
-                  quizInput.questions.length > 1
-                    ? () => handleDeleteQuestion(i)
-                    : undefined
-                }
-                formStyles={styles}
-              />
-            ))}
+      {loading && <p>Loading...</p>}
+      {!loading && (
+        <form onSubmit={handleSubmit}>
+          <div className={styles["form-group"]}>
+            <LabelInput
+              label="Title"
+              type="text"
+              required
+              maxLength={MAX_TITLE_LENGTH}
+              onChange={handleTitleChange}
+              value={quizInput.title}
+            />
           </div>
-          <Button
-            variant="secondary"
-            type="button"
-            onClick={handleAddQuestion}
-            disabled={quizInput.questions.length >= MAX_QUESTION_AMOUNT}
-          >
-            + Add Question
-          </Button>
-        </div>
-        <div className={styles["form-actions"]}>
-          <Button variant="primary" type="submit">Save Quiz</Button>
-          <Button
-            variant="danger"
-            type="button"
-            onClick={() => {
-              navigate(quizId ? `/quiz/${quizId}` : "/");
-            }}
-          >
-            Cancel
-          </Button>
-        </div>
-      </form>
+          <div className={styles["questions-section"]}>
+            <h3>Questions</h3>
+            <div>
+              {quizInput.questions.map((q, i) => (
+                <QuestionForm
+                  key={i}
+                  question={q}
+                  number={i + 1}
+                  onChange={(question) => handleQuestionChange(i, question)}
+                  onDelete={
+                    quizInput.questions.length > 1
+                      ? () => handleDeleteQuestion(i)
+                      : undefined
+                  }
+                  formStyles={styles}
+                />
+              ))}
+            </div>
+            <Button
+              variant="secondary"
+              type="button"
+              onClick={handleAddQuestion}
+              disabled={quizInput.questions.length >= MAX_QUESTION_AMOUNT}
+            >
+              + Add Question
+            </Button>
+          </div>
+          <div className={styles["form-actions"]}>
+            <Button variant="primary" type="submit">
+              Save Quiz
+            </Button>
+            <Button
+              variant="danger"
+              type="button"
+              onClick={() => {
+                navigate(quizId ? `/quiz/${quizId}` : "/");
+              }}
+            >
+              Cancel
+            </Button>
+          </div>
+        </form>
+      )}
     </div>
   );
 };

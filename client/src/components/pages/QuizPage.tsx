@@ -6,10 +6,13 @@ import Quiz from "../../types/quiz";
 import QuestionCard from "../QuestionCard/QuestionCard";
 import AuthContext from "../../context/AuthContext";
 import Button from "../ui/Button/Button";
+import { AxiosError } from "axios";
 
 const QuizPage = () => {
   const { quizId } = useParams() as { quizId: string };
   const [quiz, setQuiz] = useState<Quiz>();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<AxiosError>();
 
   const { userData } = useContext(AuthContext);
 
@@ -17,15 +20,31 @@ const QuizPage = () => {
 
   useEffect(() => {
     const fetchQuiz = async () => {
-      const fetchedQuiz = await QuizService.getQuiz(quizId);
-      setQuiz(fetchedQuiz);
+      try {
+        const fetchedQuiz = await QuizService.getQuiz(quizId);
+        setQuiz(fetchedQuiz);
+      } catch (err) {
+        if (err instanceof AxiosError) {
+          setError(err);
+        }
+        throw err;
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchQuiz();
   }, [quizId]);
 
-  if (!quiz) {
-    return <p className="page-message">No quiz found.</p>;
+  if (error || !quiz || loading) {
+    let message = "Quiz not found.";
+    if (loading) {
+      message = "Loading...";
+    }
+    if (error && error.status !== 404) {
+      message = `Error loading quiz. ${error.status}`;
+    }
+    return <p className="page-message">{message}</p>;
   }
 
   const handleHost = () => {

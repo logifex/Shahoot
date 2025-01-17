@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import styles from "./JoinForm.module.css";
 import Button from "../../ui/Button/Button";
+import { Link } from "react-router";
 
 const MAX_NICKNAME_LENGTH = 20;
 
@@ -25,7 +26,7 @@ const JoinForm = ({ onSubmit }: Props) => {
   const nameRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div className="game-container">
+    <div className={styles.container}>
       <h2>Shahoot!</h2>
       <div>
         <form className={styles.form} onSubmit={handleSubmit}>
@@ -40,6 +41,14 @@ const JoinForm = ({ onSubmit }: Props) => {
             <Button type="submit">Enter</Button>
           </div>
         </form>
+        <div className={styles.footer}>
+          <p>
+            Want to create your own quizzes?{" "}
+            <Link className="link" to="/">
+              Click here
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

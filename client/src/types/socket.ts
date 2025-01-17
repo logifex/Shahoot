@@ -7,8 +7,9 @@ export interface ServerToClientEvents {
   playerJoined: (player: Player) => void;
   prepareQuestion: (index: number, amount: number) => void;
   startQuestion: () => void;
+  playerAnswered: () => void;
   revealAnswers: (players: Player[]) => void;
-  revealResult: (correct: boolean, score: number) => void;
+  revealResult: (correct: boolean, score: number, totalScore: number) => void;
   gameDisconnected: () => void;
 }
 
