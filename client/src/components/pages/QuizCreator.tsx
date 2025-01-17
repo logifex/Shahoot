@@ -36,7 +36,8 @@ const QuizCreator = () => {
     ],
   });
   const [apiError, setApiError] = useState<AxiosError<BackendError>>();
-  const [loading, setLoading] = useState(false);
+  const [fetchLoading, setFetchLoading] = useState(false);
+  const [formLoading, setFormLoading] = useState(false);
 
   useEffect(() => {
     if (!quizId) {
@@ -44,13 +45,13 @@ const QuizCreator = () => {
     }
 
     const fetchQuiz = async () => {
-      setLoading(true);
+      setFetchLoading(true);
       const fetchedQuiz = await QuizService.getQuiz(quizId);
       setQuizInput({
         title: fetchedQuiz.title,
         questions: fetchedQuiz.questions,
       });
-      setLoading(false);
+      setFetchLoading(false);
 
       const quizCreator = fetchedQuiz.user as { _id: string; username: string };
       if (quizCreator._id !== userData?.user._id) {
@@ -121,6 +122,7 @@ const QuizCreator = () => {
     };
 
     try {
+      setFormLoading(true);
       if (quizId) {
         await QuizService.updateQuiz(quizId, newQuiz, userData.token);
         navigate(`/quiz/${quizId}`);
@@ -136,6 +138,8 @@ const QuizCreator = () => {
         setApiError(err);
       }
       throw err;
+    } finally {
+      setFormLoading(false);
     }
   };
 
@@ -154,8 +158,8 @@ const QuizCreator = () => {
         ) : (
           <p className={styles["error-message"]}>Error trying to submit.</p>
         ))}
-      {loading && <p>Loading...</p>}
-      {!loading && (
+      {fetchLoading && <p>Loading...</p>}
+      {!fetchLoading && (
         <form onSubmit={handleSubmit}>
           <div className={styles["form-group"]}>
             <LabelInput
@@ -195,7 +199,7 @@ const QuizCreator = () => {
             </Button>
           </div>
           <div className={styles["form-actions"]}>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" disabled={formLoading}>
               Save Quiz
             </Button>
             <Button

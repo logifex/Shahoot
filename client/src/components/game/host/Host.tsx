@@ -8,7 +8,6 @@ import QuestionType from "../../../types/question";
 import Game from "../../../types/game";
 import Player from "../../../types/player";
 import { useSearchParams } from "react-router";
-import useSocket from "../../../hooks/useSocket";
 import HostLayout from "./HostLayout/HostLayout";
 
 enum GameState {
@@ -26,8 +25,6 @@ const Host = () => {
 
   const [searchParams] = useSearchParams();
   const quizId = searchParams.get("quiz");
-
-  useSocket();
 
   useEffect(() => {
     if (!game && quizId) {
@@ -100,7 +97,11 @@ const Host = () => {
   }, []);
 
   if (!game) {
-    return <div></div>;
+    return (
+      <div>
+        <p className="page-message">Loading...</p>
+      </div>
+    );
   }
 
   const handleLeaderboard = () => {

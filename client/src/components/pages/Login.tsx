@@ -15,6 +15,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [apiError, setApiError] = useState<AxiosError<BackendError>>();
+  const [loading, setLoading] = useState(false);
 
   const [lastUsername, setLastUsername] = useState<string>();
 
@@ -31,6 +32,7 @@ const Login = () => {
 
     try {
       setLastUsername(username);
+      setLoading(true);
 
       const userData = await AuthService.login(username, password);
       signIn(userData);
@@ -39,6 +41,8 @@ const Login = () => {
         return setApiError(err);
       }
       throw err;
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -82,7 +86,11 @@ const Login = () => {
             value={password}
           />
         </div>
-        <Button variant="primary" type="submit" disabled={!username || !password}>
+        <Button
+          variant="primary"
+          type="submit"
+          disabled={!username || !password || loading}
+        >
           Login
         </Button>
       </form>

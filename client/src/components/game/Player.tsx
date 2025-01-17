@@ -7,7 +7,6 @@ import AnswerButton from "./AnswerButton/AnswerButton";
 import Waiting from "./Waiting/Waiting";
 import QuestionResult from "./QuestionResult/QuestionResult";
 import PlayerLayout from "./PlayerLayout/PlayerLayout";
-import useSocket from "../../hooks/useSocket";
 
 enum GameState {
   Waiting,
@@ -25,8 +24,6 @@ const Player = () => {
   const [chosenAnswerIndex, setChosenAnswerIndex] = useState<number>();
   const [round, setRound] = useState<{ correct: boolean; score: number }>();
   const [gameState, setGameState] = useState<GameState>(GameState.Waiting);
-
-  useSocket();
 
   const handleJoin = (pin: string, nickname: string) => {
     socket.emit("playerJoin", pin, nickname);

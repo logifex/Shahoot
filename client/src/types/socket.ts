@@ -11,6 +11,7 @@ export interface ServerToClientEvents {
   revealAnswers: (players: Player[]) => void;
   revealResult: (correct: boolean, score: number, totalScore: number) => void;
   gameDisconnected: () => void;
+  error: (message: string) => void;
 }
 
 export interface ClientToServerEvents {

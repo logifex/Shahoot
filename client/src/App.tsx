@@ -10,6 +10,7 @@ import ProtectedRouteLayout from "./components/layout/ProtectedRouteLayout";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import VerificationAction from "./components/pages/VerificationAction";
+import GameLayout from "./components/layout/GameLayout";
 
 function App() {
   return (
@@ -35,7 +36,7 @@ function App() {
           />
           <Route path="quiz/:quizId" element={<QuizPage />} />
         </Route>
-        <Route path="play">
+        <Route path="play" element={<GameLayout />}>
           <Route index element={<Player />} />
           <Route path="host" element={<Host />} />
         </Route>
