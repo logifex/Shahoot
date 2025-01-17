@@ -12,6 +12,21 @@
   font-weight: bold;
 }
 
+.buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.link {
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
 .user-info {
   display: flex;
   align-items: center;

@@ -22,16 +22,21 @@ const MainLayout = () => {
               <p>Shahoot!</p>
             </div>
           </Link>
-          <div className={styles["user-info"]}>
-            {userData && <p>Welcome, {userData.user.username}</p>}
-            <Button
-              variant="inverted"
-              className={styles["log-btn"]}
-              type="button"
-              onClick={userData ? signOut : handleLogin}
-            >
-              {userData ? "Logout" : "Login"}
-            </Button>
+          <div className={styles.buttons}>
+            <Link className={styles.link} to="/play">
+              Play
+            </Link>
+            <div className={styles["user-info"]}>
+              {userData && <p>Welcome, {userData.user.username}</p>}
+              <Button
+                variant="inverted"
+                className={styles["log-btn"]}
+                type="button"
+                onClick={userData ? signOut : handleLogin}
+              >
+                {userData ? "Logout" : "Login"}
+              </Button>
+            </div>
           </div>
         </nav>
       </header>

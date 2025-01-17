@@ -15,12 +15,23 @@ const Lobby = ({ game }: Props) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles["pin-container"]}>
-        <p>Game PIN</p>
-        <p className={styles["pin-text"]}>{game.pin}</p>
+      <div className={styles["pin-header"]}>
+        <div className={styles["join-container"]}>
+          <p>
+            Join at
+            <br />
+            <span
+              className={styles["url"]}
+            >{`${window.location.hostname}/play`}</span>
+          </p>
+        </div>
+        <div className={styles["pin-container"]}>
+          <p>Game PIN</p>
+          <p className={styles["pin-text"]}>{game.pin}</p>
+        </div>
       </div>
       <div className={styles.lobby}>
-        <div className={styles.header}>
+        <div className={styles["players-header"]}>
           <div className={styles.spacer}></div>
           <div className={styles.title}>
             <h2>Shahoot!</h2>
@@ -30,6 +41,7 @@ const Lobby = ({ game }: Props) => {
               variant="inverted"
               type="button"
               onClick={handleStart}
+              disabled={game.players.length === 0}
             >
               Start Game
             </Button>
