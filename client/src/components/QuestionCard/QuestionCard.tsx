@@ -10,7 +10,7 @@ const QuestionCard = ({ question, number }: Props) => {
       <p>{question.question}</p>
       <ol className={styles.answers}>
         {question.answers.map((a, i) => (
-          <li key={i}>{a.answer}</li>
+          <li key={i}>{i + 1}. {a.answer}</li>
         ))}
       </ol>
     </div>

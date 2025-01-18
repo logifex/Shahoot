@@ -19,6 +19,12 @@ export const questionSchema = new Schema(
       minLength: 1,
       maxlength: 120,
     },
+    time: {
+      type: Number,
+      required: true,
+      min: 5,
+      max: 240,
+    },
     answers: {
       type: [answerSchema],
       required: true,

@@ -26,6 +26,11 @@ const QuestionForm = ({
     onChange(updatedQuestion);
   };
 
+  const handleTimeLimitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const updatedQuestion = { ...question, time: +e.target.value };
+    onChange(updatedQuestion);
+  };
+
   const handleAnswerChange = (index: number, value: string) => {
     const updatedAnswers = question.answers.slice();
     updatedAnswers[index] = { ...updatedAnswers[index], answer: value };
@@ -46,8 +51,20 @@ const QuestionForm = ({
           type="text"
           required
           maxLength={MAX_QUESTION_LENGTH}
+          placeholder="Question"
           onChange={handleQuestionChange}
           value={question.question}
+        />
+      </div>
+      <div className={formStyles["form-group"]}>
+        <LabelInput
+          label="Time Limit (Seconds)"
+          min={5}
+          max={240}
+          type="number"
+          required
+          onChange={handleTimeLimitChange}
+          value={question.time}
         />
       </div>
       <div>

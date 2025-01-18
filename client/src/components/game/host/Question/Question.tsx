@@ -35,7 +35,7 @@ const Question = ({ question, showAnswers, onNext }: Props) => {
           <p>{answered}</p>
           <p>Answered</p>
         </div>
-        {!showAnswers && <Timer time={10} />}
+        {!showAnswers && <Timer time={question.time ?? 10} />}
       </div>
       <div className={styles["answers-container"]}>
         <ol className={styles.answers}>

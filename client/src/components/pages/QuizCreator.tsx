@@ -13,6 +13,7 @@ import Button from "../ui/Button/Button";
 
 const MAX_TITLE_LENGTH = 120;
 const MAX_QUESTION_AMOUNT = 99;
+const DEFAULT_QUESTION_TIME = 10;
 
 const QuizCreator = () => {
   const { ready, userData } = useContext(AuthContext);
@@ -26,6 +27,7 @@ const QuizCreator = () => {
     questions: [
       {
         question: "",
+        time: DEFAULT_QUESTION_TIME,
         answers: [
           { answer: "", correct: false },
           { answer: "", correct: false },
@@ -71,6 +73,7 @@ const QuizCreator = () => {
         ...prevInput.questions,
         {
           question: "",
+          time: DEFAULT_QUESTION_TIME,
           answers: [
             { answer: "", correct: false },
             { answer: "", correct: false },

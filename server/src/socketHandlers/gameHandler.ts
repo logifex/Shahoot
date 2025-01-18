@@ -11,7 +11,6 @@ import {
 } from "../utils/socketValidations";
 
 const PREPARE_QUESTION_TIMEOUT = 5000;
-const QUESTION_TIMEOUT = 10000;
 
 export async function createGame(this: AppSocket, quizId: unknown) {
   const socket = this;
@@ -68,7 +67,7 @@ export function startQuestion(this: AppSocket, pin: unknown) {
       if (game.currentQuestionIndex === currentQuestionIndex) {
         revealAnswers(pin);
       }
-    }, QUESTION_TIMEOUT);
+    }, (game.questions[currentQuestionIndex].time ?? 10) * 1000);
   }, PREPARE_QUESTION_TIMEOUT);
 }
 
