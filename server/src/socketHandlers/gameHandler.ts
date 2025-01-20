@@ -10,7 +10,7 @@ import {
   validatePin,
 } from "../utils/socketValidations";
 
-const PREPARE_QUESTION_TIMEOUT = 5000;
+const PREPARE_QUESTION_TIMEOUT = 5 * 1000;
 
 export async function createGame(this: AppSocket, quizId: unknown) {
   const socket = this;
@@ -62,12 +62,16 @@ export function startQuestion(this: AppSocket, pin: unknown) {
   GameService.moveToQuestion(pin, currentQuestionIndex);
 
   setTimeout(() => {
-    GameService.startQuestion(pin);
-    setTimeout(() => {
-      if (game.currentQuestionIndex === currentQuestionIndex) {
-        revealAnswers(pin);
-      }
-    }, (game.questions[currentQuestionIndex].time ?? 10) * 1000);
+    try {
+      GameService.startQuestion(pin);
+      setTimeout(() => {
+        if (game.currentQuestionIndex === currentQuestionIndex) {
+          try {
+            revealAnswers(pin);
+          } catch {}
+        }
+      }, game.questions[currentQuestionIndex].timer * 1000);
+    } catch {}
   }, PREPARE_QUESTION_TIMEOUT);
 }
 

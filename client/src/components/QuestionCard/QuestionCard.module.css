@@ -1,4 +1,4 @@
-.question-card {
+.card {
   background-color: #ffffff;
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -8,7 +8,7 @@
   width: 100%;
 }
 
-.question-card h3 {
+.card h3 {
   margin-bottom: 0.5rem;
 }
 

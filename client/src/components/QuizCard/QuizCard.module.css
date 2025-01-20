@@ -1,4 +1,4 @@
-.quiz-card {
+.card {
   background-color: #ffffff;
   padding: 1.5rem;
   border: 1px solid #ddd;
@@ -7,7 +7,7 @@
   text-align: center;
 }
 
-.quiz-card h2 {
+.card h2 {
   font-size: 1.25rem;
   margin-bottom: 1rem;
 }

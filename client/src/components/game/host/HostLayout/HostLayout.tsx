@@ -5,20 +5,20 @@ type Props = PropsWithChildren<{
   gamePin: string;
   questionNumber: number;
   questionAmount: number;
-  showFooter: boolean;
+  gameStarted: boolean;
 }>;
 
 const HostLayout = ({
   gamePin,
   questionNumber,
   questionAmount,
-  showFooter,
+  gameStarted,
   children,
 }: Props) => {
   return (
     <div className={styles.layout}>
       <div className={styles.content}>{children}</div>
-      {showFooter && (
+      {gameStarted && (
         <footer className={styles.footer}>
           <div className={styles["footer-item"]}>
             <p>

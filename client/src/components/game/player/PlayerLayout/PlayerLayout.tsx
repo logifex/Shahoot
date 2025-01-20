@@ -14,12 +14,10 @@ const PlayerLayout = ({ nickname, score, questionNumber, children }: Props) => {
         <p>{questionNumber}</p>
       </header>
       <div className={styles.content}>{children}</div>
-      {nickname && (
-        <footer className={styles.footer}>
-          <p className={styles.nickname}>{nickname}</p>
-          <p className={styles.score}>{score}</p>
-        </footer>
-      )}
+      <footer className={styles.footer}>
+        <p className={styles.nickname}>{nickname}</p>
+        <p className={styles.score}>{score}</p>
+      </footer>
     </div>
   );
 };

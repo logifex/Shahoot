@@ -10,7 +10,7 @@ const errorHandler = (
       socket.emit("error", err.message);
       return;
     }
-    socket.emit("error", "Error");
+    socket.emit("error", "An error occurred");
     console.error(err);
   };
 

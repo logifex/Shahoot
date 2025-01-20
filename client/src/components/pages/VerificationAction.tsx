@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import AuthService from "../../services/AuthService";
-import { Link, useNavigate, useSearchParams } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { AxiosError } from "axios";
 
 type Props = {
@@ -14,8 +14,6 @@ const VerificationAction = ({ action }: Props) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<AxiosError>();
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     if (!token) {
       return;
@@ -28,18 +26,18 @@ const VerificationAction = ({ action }: Props) => {
         } else if (action === "cancel") {
           await AuthService.cancelVerification(token);
         }
-        setLoading(false);
       } catch (err) {
         if (err instanceof AxiosError) {
           setError(err);
-          setLoading(false);
         }
         throw err;
+      } finally {
+        setLoading(false);
       }
     };
 
     performAction();
-  }, [action, navigate, token]);
+  }, [action, token]);
 
   return (
     <div className="page-message">
@@ -50,7 +48,9 @@ const VerificationAction = ({ action }: Props) => {
       {!error && !loading && (
         <>
           <p>Success!</p>
-          <Link className="link" to="/login">Login</Link>
+          <Link className="link" to="/login">
+            Login
+          </Link>
         </>
       )}
     </div>

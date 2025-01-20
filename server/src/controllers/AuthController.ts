@@ -5,8 +5,8 @@ import UserExistsError from "../errors/UserExistsError";
 const postRegister = async (req: Request, res: Response) => {
   const { email, username, password } = req.body;
 
-  const existingUser = await AuthService.checkUserExists(email, username);
-  if (existingUser) {
+  const userExists = await AuthService.checkUserExists(email, username);
+  if (userExists) {
     throw new UserExistsError();
   }
 
@@ -21,7 +21,7 @@ const postLogin = async (req: Request, res: Response) => {
     throw new Error("No user");
   }
 
-  const token = await AuthService.signToken(user._id.toString());
+  const token = await AuthService.signAuthToken(user._id.toString());
 
   res.status(200).json({ token: token, user: user });
 };

@@ -1,8 +1,8 @@
 import { Link, Outlet, useNavigate } from "react-router";
 import styles from "./MainLayout.module.css";
 import { useContext } from "react";
-import AuthContext from "../../context/AuthContext";
-import Button from "../ui/Button/Button";
+import AuthContext from "../../../context/AuthContext";
+import Button from "../../ui/Button/Button";
 
 const MainLayout = () => {
   const { userData, signOut } = useContext(AuthContext);
@@ -14,7 +14,7 @@ const MainLayout = () => {
   };
 
   return (
-    <>
+    <div className={styles.layout}>
       <header>
         <nav className={styles.navbar}>
           <Link to="/">
@@ -27,10 +27,14 @@ const MainLayout = () => {
               Play
             </Link>
             <div className={styles["user-info"]}>
-              {userData && <p>Welcome, {userData.user.username}</p>}
+              {userData && (
+                <p className={styles["user-message"]}>
+                  Welcome, {userData.user.username}
+                </p>
+              )}
               <Button
                 variant="inverted"
-                className={styles["log-btn"]}
+                className={styles["login-btn"]}
                 type="button"
                 onClick={userData ? signOut : handleLogin}
               >
@@ -40,10 +44,10 @@ const MainLayout = () => {
           </div>
         </nav>
       </header>
-      <main>
+      <main className={styles.content}>
         <Outlet />
       </main>
-    </>
+    </div>
   );
 };
 

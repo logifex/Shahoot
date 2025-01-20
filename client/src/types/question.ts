@@ -1,6 +1,6 @@
 type Question = {
   question: string;
-  time: number;
+  timer: number;
   answers: { answer: string; correct: boolean }[];
 };
 

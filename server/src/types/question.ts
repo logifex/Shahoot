@@ -2,7 +2,7 @@ import IAnswer from "./answer";
 
 interface IQuestion {
   question: string;
-  time: number;
+  timer: number;
   answers: IAnswer[];
 }
 

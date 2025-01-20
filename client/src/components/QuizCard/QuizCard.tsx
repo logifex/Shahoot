@@ -13,7 +13,7 @@ const QuizCard = ({ quiz }: Props) => {
   };
 
   return (
-    <div className={styles["quiz-card"]}>
+    <div className={styles.card}>
       <h2>{quiz.title}</h2>
       <Button variant="primary" type="button" onClick={handleView}>
         View

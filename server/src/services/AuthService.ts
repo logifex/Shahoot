@@ -56,9 +56,8 @@ const authenticateAndGetUser = async (
   }
 };
 
-const signToken = async (id: string): Promise<string> => {
+const signAuthToken = async (id: string): Promise<string> => {
   const jwtSecret = process.env.JWT_SECRET;
-
   if (!jwtSecret) {
     throw new Error("No JWT secret");
   }
@@ -72,7 +71,6 @@ const signToken = async (id: string): Promise<string> => {
 
 const verifyEmail = async (token: string) => {
   const mailSecret = process.env.MAIL_SECRET;
-
   if (!mailSecret) {
     throw new Error("No mail secret");
   }
@@ -83,7 +81,6 @@ const verifyEmail = async (token: string) => {
 
 const cancelVerification = async (token: string) => {
   const mailSecret = process.env.MAIL_SECRET;
-
   if (!mailSecret) {
     throw new Error("No mail secret");
   }
@@ -101,7 +98,7 @@ const sendVerificationEmail = async (username: string) => {
     throw new Error("No user");
   }
 
-  const clientUrl = process.env.CLIENT_URL || "localhost:5173";
+  const clientUrl = process.env.CLIENT_URL ?? "localhost:5173";
   const mailSecret = process.env.MAIL_SECRET;
   const emailAddress = process.env.EMAIL_ADDRESS;
 
@@ -130,7 +127,7 @@ export default {
   checkUserExists,
   register,
   authenticateAndGetUser,
-  signToken,
+  signAuthToken,
   verifyEmail,
   cancelVerification,
   sendVerificationEmail,

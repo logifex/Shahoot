@@ -1,4 +1,4 @@
-import Timer from "../Timer/Timer";
+import Timer from "../../Timer/Timer";
 import styles from "./PrepareQuestionTimer.module.css";
 
 type Props = { questionNumber: number };

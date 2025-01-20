@@ -30,9 +30,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       return;
     }
 
-    if (userJson) {
-      setUserData({ token: storedToken, user: storedUser });
-    }
+    setUserData({ token: storedToken, user: storedUser });
   }, []);
 
   const signIn = (userData: { token: string; user: User }) => {
@@ -42,7 +40,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       "user-data",
       JSON.stringify({
         ...userData,
-        expiry: new Date(new Date().getTime() + EXPIRY_TIME).toISOString(),
+        expiry: new Date(Date.now() + EXPIRY_TIME).toISOString(),
       })
     );
   };

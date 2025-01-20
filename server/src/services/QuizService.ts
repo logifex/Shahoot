@@ -35,6 +35,7 @@ const updateQuiz = async (
     new: true,
     runValidators: true,
   });
+  
   if (!quiz) {
     throw new QuizNotFound();
   }

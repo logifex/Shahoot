@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import styles from "./QuizzesPage.module.css";
-import QuizService from "../../services/QuizService";
-import Quiz from "../../types/quiz";
-import QuizCard from "../QuizCard/QuizCard";
+import QuizService from "../../../services/QuizService";
+import Quiz from "../../../types/quiz";
+import QuizCard from "../../QuizCard/QuizCard";
 import { useNavigate } from "react-router";
-import AuthContext from "../../context/AuthContext";
-import Button from "../ui/Button/Button";
+import AuthContext from "../../../context/AuthContext";
+import Button from "../../ui/Button/Button";
 import { AxiosError } from "axios";
 
 const QuizzesPage = () => {
@@ -59,10 +59,10 @@ const QuizzesPage = () => {
       </section>
       <section className={styles.quizzes}>
         {!quizzes && loading && <p className="page-message">Loading...</p>}
-        {!quizzes && error && <p>Error loading quizzes</p>}
-        {quizzes?.map((q) => (
-          <QuizCard key={q._id} quiz={q} />
-        ))}
+        {!quizzes && error && (
+          <p className="page-message">Error loading quizzes</p>
+        )}
+        {quizzes && quizzes.map((q) => <QuizCard key={q._id} quiz={q} />)}
       </section>
     </>
   );

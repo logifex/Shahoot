@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import styles from "./JoinForm.module.css";
-import Button from "../../ui/Button/Button";
+import Button from "../../../ui/Button/Button";
 import { Link } from "react-router";
 
 const MAX_NICKNAME_LENGTH = 20;
@@ -12,6 +12,7 @@ type Props = {
 const JoinForm = ({ onSubmit }: Props) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
     const pin = pinRef.current?.value;
     const name = nameRef.current?.value;
 

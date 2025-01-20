@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import JoinForm from "./JoinForm/JoinForm";
-import socket from "../../config/socket";
+import socket from "../../../config/socket";
 import PrepareQuestionTimer from "./PrepareQuestionTimer/PrepareQuestionTimer";
 import Answers from "./Answers/Answers";
 import AnswerButton from "./AnswerButton/AnswerButton";
@@ -94,9 +94,7 @@ const Player = () => {
       score={score}
       questionNumber={questionIndex + 1}
     >
-      {gameState === GameState.Waiting && nickname && (
-        <Waiting nickname={nickname} />
-      )}
+      {gameState === GameState.Waiting && <Waiting nickname={nickname} />}
       {gameState === GameState.PrepareQuestion && (
         <PrepareQuestionTimer questionNumber={questionIndex + 1} />
       )}

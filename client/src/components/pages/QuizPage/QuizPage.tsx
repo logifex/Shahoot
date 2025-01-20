@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import QuizService from "../../services/QuizService";
+import QuizService from "../../../services/QuizService";
 import { createSearchParams, useNavigate, useParams } from "react-router";
 import styles from "./QuizPage.module.css";
-import Quiz from "../../types/quiz";
-import QuestionCard from "../QuestionCard/QuestionCard";
-import AuthContext from "../../context/AuthContext";
-import Button from "../ui/Button/Button";
+import Quiz from "../../../types/quiz";
+import QuestionCard from "../../QuestionCard/QuestionCard";
+import AuthContext from "../../../context/AuthContext";
+import Button from "../../ui/Button/Button";
 import { AxiosError } from "axios";
 
 const QuizPage = () => {
@@ -36,7 +36,7 @@ const QuizPage = () => {
     fetchQuiz();
   }, [quizId]);
 
-  if (error || !quiz || loading) {
+  if (!quiz) {
     let message = "Quiz not found.";
     if (loading) {
       message = "Loading...";
@@ -75,7 +75,7 @@ const QuizPage = () => {
     <>
       <section className={styles["quiz-details"]}>
         <h1>{quiz.title}</h1>
-        {<p>By {quizCreator.username}</p>}
+        <p>By {quizCreator.username}</p>
         <div className={styles["quiz-actions"]}>
           <Button
             variant="primary"

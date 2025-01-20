@@ -32,17 +32,17 @@ const Question = ({ question, showAnswers, onNext }: Props) => {
       <h2 className={styles.title}>{question.question}</h2>
       <div className={styles.header}>
         <div className={styles.answered}>
-          <p>{answered}</p>
-          <p>Answered</p>
+          <span>{answered}</span>
+          <br />
+          <span>Answered</span>
         </div>
-        {!showAnswers && <Timer time={question.time ?? 10} />}
+        {!showAnswers && <Timer time={question.timer} />}
       </div>
       <div className={styles["answers-container"]}>
         <ol className={styles.answers}>
           {question.answers.map((a, i) => (
             <li key={i}>
               <Answer
-                key={a.answer}
                 text={a.answer}
                 correct={showAnswers && a.correct}
                 number={i + 1}

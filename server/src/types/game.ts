@@ -7,7 +7,7 @@ interface IGame {
   players: IPlayerSession[];
   questions: IQuestion[];
   currentQuestionIndex: number;
-  questionTime: number;
+  questionStartTime: number;
   gettingAnswers: boolean;
 }
 

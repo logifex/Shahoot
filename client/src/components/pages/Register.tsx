@@ -12,8 +12,8 @@ import Button from "../ui/Button/Button";
 const Register = () => {
   const { userData } = useContext(AuthContext);
 
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState({
     value: "",
@@ -141,7 +141,7 @@ const Register = () => {
           />
           {confirmPassword.error && (
             <small className={styles["error-field"]}>
-              Passwords aren't identical
+              Passwords don't match
             </small>
           )}
         </div>

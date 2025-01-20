@@ -22,7 +22,7 @@ const createNewGame = (host: string, quiz: IQuiz): IGame => {
     questions: quiz.questions,
     currentQuestionIndex: -1,
     gettingAnswers: false,
-    questionTime: 0,
+    questionStartTime: 0,
   };
 
   games.set(gamePin, game);
@@ -72,7 +72,7 @@ const startQuestion = (pin: string) => {
 
   getIo().to(`room-${pin}`).emit("startQuestion");
   game.gettingAnswers = true;
-  game.questionTime = Date.now();
+  game.questionStartTime = Date.now();
 };
 
 const revealAnswers = (pin: string) => {
@@ -126,10 +126,12 @@ const submitAnswer = (
   }
 
   player.round.chosenAnswerIndex = chosenAnswerIndex;
-  if (
-    game.questions[game.currentQuestionIndex].answers[chosenAnswerIndex].correct
-  ) {
-    player.round.score = calculateScore(game.questionTime);
+  const currentQuestion = game.questions[game.currentQuestionIndex];
+  if (currentQuestion.answers[chosenAnswerIndex].correct) {
+    player.round.score = calculateScore(
+      game.questionStartTime,
+      currentQuestion.timer
+    );
   }
   getIo().to(game.host).emit("playerAnswered");
 };

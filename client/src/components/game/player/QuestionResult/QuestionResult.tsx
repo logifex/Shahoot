@@ -1,5 +1,6 @@
-type Props = { correct: boolean; score: number };
 import styles from "./QuestionResult.module.css";
+
+type Props = { correct: boolean; score: number };
 
 const QuestionResult = ({ correct, score }: Props) => {
   const containerClass = correct

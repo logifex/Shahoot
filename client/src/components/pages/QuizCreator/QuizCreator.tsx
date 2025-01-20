@@ -1,19 +1,30 @@
 import { useContext, useEffect, useState } from "react";
 import styles from "./QuizCreator.module.css";
-import { QuizInput } from "../../types/quiz";
+import { QuizInput } from "../../../types/quiz";
 import { useNavigate, useParams } from "react-router";
-import QuizService from "../../services/QuizService";
-import QuestionForm from "../QuizForm/QuestionForm";
-import Question from "../../types/question";
-import LabelInput from "../ui/LabelInput/LabelInput";
-import AuthContext from "../../context/AuthContext";
+import QuizService from "../../../services/QuizService";
+import QuestionForm from "../../QuizForm/QuestionForm";
+import Question from "../../../types/question";
+import LabelInput from "../../ui/LabelInput/LabelInput";
+import AuthContext from "../../../context/AuthContext";
 import { AxiosError } from "axios";
-import BackendError from "../../types/error";
-import Button from "../ui/Button/Button";
+import BackendError from "../../../types/error";
+import Button from "../../ui/Button/Button";
 
 const MAX_TITLE_LENGTH = 120;
 const MAX_QUESTION_AMOUNT = 99;
 const DEFAULT_QUESTION_TIME = 10;
+
+const EMPTY_ANSWER_INPUT = { answer: "", correct: false };
+const EMPTY_QUESTION_INPUT = {
+  question: "",
+  time: DEFAULT_QUESTION_TIME,
+  answers: Array(4).fill(EMPTY_ANSWER_INPUT),
+};
+const EMPTY_QUIZ_INPUT = {
+  title: "",
+  questions: [EMPTY_QUESTION_INPUT],
+};
 
 const QuizCreator = () => {
   const { ready, userData } = useContext(AuthContext);
@@ -22,36 +33,29 @@ const QuizCreator = () => {
 
   const { quizId } = useParams() as { quizId?: string };
 
-  const [quizInput, setQuizInput] = useState<QuizInput>({
-    title: "",
-    questions: [
-      {
-        question: "",
-        time: DEFAULT_QUESTION_TIME,
-        answers: [
-          { answer: "", correct: false },
-          { answer: "", correct: false },
-          { answer: "", correct: false },
-          { answer: "", correct: false },
-        ],
-      },
-    ],
-  });
+  const [quizInput, setQuizInput] = useState<QuizInput>(EMPTY_QUIZ_INPUT);
   const [apiError, setApiError] = useState<AxiosError<BackendError>>();
   const [fetchLoading, setFetchLoading] = useState(false);
   const [formLoading, setFormLoading] = useState(false);
 
   useEffect(() => {
-    if (!quizId) {
+    if (!quizId || !ready) {
       return;
     }
 
     const fetchQuiz = async () => {
       setFetchLoading(true);
       const fetchedQuiz = await QuizService.getQuiz(quizId);
+      const questions = fetchedQuiz.questions.map((q) => ({
+        ...q,
+        answers: [
+          ...q.answers,
+          ...Array(4 - q.answers.length).fill(EMPTY_ANSWER_INPUT),
+        ],
+      }));
       setQuizInput({
         title: fetchedQuiz.title,
-        questions: fetchedQuiz.questions,
+        questions: questions,
       });
       setFetchLoading(false);
 
@@ -61,27 +65,13 @@ const QuizCreator = () => {
       }
     };
 
-    if (ready) {
-      fetchQuiz();
-    }
+    fetchQuiz();
   }, [quizId, ready, userData, navigate]);
 
   const handleAddQuestion = () => {
     setQuizInput((prevInput) => ({
       ...prevInput,
-      questions: [
-        ...prevInput.questions,
-        {
-          question: "",
-          time: DEFAULT_QUESTION_TIME,
-          answers: [
-            { answer: "", correct: false },
-            { answer: "", correct: false },
-            { answer: "", correct: false },
-            { answer: "", correct: false },
-          ],
-        },
-      ],
+      questions: [...prevInput.questions, EMPTY_QUESTION_INPUT],
     }));
   };
 

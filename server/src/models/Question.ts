@@ -4,9 +4,7 @@ import IAnswer from "../types/answer";
 
 const answersValidator = (answers: IAnswer[]) => {
   return (
-    answers.length >= 2 &&
-    answers.length <= 4 &&
-    !!answers.find((a) => a.correct)
+    answers.length >= 2 && answers.length <= 4 && answers.some((a) => a.correct)
   );
 };
 
@@ -19,7 +17,7 @@ export const questionSchema = new Schema(
       minLength: 1,
       maxlength: 120,
     },
-    time: {
+    timer: {
       type: Number,
       required: true,
       min: 5,

@@ -35,7 +35,7 @@ export const configSocket = (httpServer: Server) => {
   });
 
   io.of("/").adapter.on("leave-room", async (room: string) => {
-    const regex = /room-(\d{5})/;
+    const regex = /room-(\d+)/;
     const match = room.match(regex);
     if (!match) {
       return;

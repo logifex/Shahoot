@@ -1,6 +1,7 @@
 .container {
   margin: auto;
-  width: 32rem;
+  width: 100%;
+  max-width: 32rem;
 }
 
 .title {
@@ -12,7 +13,7 @@
 }
 
 .register {
-  margin: 1rem 0;
+  margin-top: 1rem;
 }
 
 .error-message {

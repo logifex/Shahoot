@@ -26,7 +26,7 @@ const getQuiz = async (req: Request, res: Response<IQuiz>) => {
 };
 
 const postQuiz = async (req: Request, res: Response<IQuiz>) => {
-  const { body } = req;
+  const { title, questions } = req.body;
 
   const user = req.user;
   if (!user) {
@@ -34,8 +34,8 @@ const postQuiz = async (req: Request, res: Response<IQuiz>) => {
   }
 
   const quizInput: IQuizInput = {
-    title: body.title,
-    questions: body.questions,
+    title: title,
+    questions: questions,
   };
   const quiz = await QuizService.createQuiz(quizInput, user._id.toString());
 
@@ -44,11 +44,11 @@ const postQuiz = async (req: Request, res: Response<IQuiz>) => {
 
 const putQuiz = async (req: Request, res: Response<IQuiz>) => {
   const { quizId } = req.params;
-  const { body } = req;
+  const { title, questions } = req.body;
 
   const quizInput: IQuizInput = {
-    title: body.title,
-    questions: body.questions,
+    title: title,
+    questions: questions,
   };
   const quiz = await QuizService.updateQuiz(quizId, quizInput);
 

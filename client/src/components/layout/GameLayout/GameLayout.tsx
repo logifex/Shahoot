@@ -1,7 +1,7 @@
 import { Link, Outlet } from "react-router";
-import useSocket from "../../hooks/useSocket";
+import useSocket from "../../../hooks/useSocket";
 import { useEffect, useState } from "react";
-import socket from "../../config/socket";
+import socket from "../../../config/socket";
 import styles from "./GameLayout.module.css";
 
 const GameLayout = () => {

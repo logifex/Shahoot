@@ -1,4 +1,4 @@
-.question-text {
+.question {
   font-size: 1.8rem;
   font-weight: 500;
   border: 2px solid #e0e0e0;
@@ -12,7 +12,7 @@
   text-align: center;
 }
 
-.question-number-text {
+.question-number {
   font-size: 1.5rem;
   font-weight: bold;
   color: var(--primary-color);

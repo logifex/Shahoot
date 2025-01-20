@@ -3,6 +3,9 @@ import LabelInput from "../ui/LabelInput/LabelInput";
 import Button from "../ui/Button/Button";
 import styles from "./QuestionForm.module.css";
 
+const MAX_QUESTION_LENGTH = 120;
+const MAX_ANSWER_LENGTH = 75;
+
 type Props = {
   question: Question;
   number: number;
@@ -10,9 +13,6 @@ type Props = {
   onDelete?: () => void;
   formStyles: CSSModuleClasses;
 };
-
-const MAX_QUESTION_LENGTH = 120;
-const MAX_ANSWER_LENGTH = 75;
 
 const QuestionForm = ({
   question,
@@ -64,14 +64,14 @@ const QuestionForm = ({
           type="number"
           required
           onChange={handleTimeLimitChange}
-          value={question.time}
+          value={question.timer}
         />
       </div>
       <div>
         <p className={styles.label}>Answers</p>
         <div className={styles.answers}>
           {question.answers.map((a, i) => (
-            <div className={styles.answer} key={i}>
+            <div key={i} className={styles.answer}>
               <LabelInput
                 type="text"
                 required={i <= 1}

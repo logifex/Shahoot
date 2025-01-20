@@ -16,7 +16,6 @@ enum GameState {
   Question,
   QuestionResults,
   Leaderboard,
-  Results,
 }
 
 const Host = () => {
@@ -70,7 +69,7 @@ const Host = () => {
     };
 
     const revealAnswers = (players: Player[]) => {
-      setGame((prevGame) => prevGame && { ...prevGame, players });
+      setGame((prevGame) => prevGame && { ...prevGame, players: players });
       setGameState(GameState.QuestionResults);
     };
 
@@ -123,7 +122,7 @@ const Host = () => {
       gamePin={game.pin}
       questionNumber={game.currentQuestionIndex + 1}
       questionAmount={game.questions.length}
-      showFooter={game.currentQuestionIndex !== -1}
+      gameStarted={game.currentQuestionIndex !== -1}
     >
       {gameState === GameState.Lobby && <Lobby game={game} />}
       {gameState === GameState.PrepareQuestion && (

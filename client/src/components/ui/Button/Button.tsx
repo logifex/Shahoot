@@ -19,13 +19,16 @@ const Button = ({ className, children, variant, ...rest }: Props) => {
     variantClass = styles.inverted;
   }
 
+  const buttonClass = [
+    styles.button,
+    variantClass && variantClass,
+    className && className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <button
-      className={`${styles.button}${variantClass ? ` ${variantClass}` : ""}${
-        className ? ` ${className}` : ""
-      }`}
-      {...rest}
-    >
+    <button className={buttonClass} {...rest}>
       {children}
     </button>
   );
