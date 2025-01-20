@@ -27,7 +27,7 @@ const QuestionForm = ({
   };
 
   const handleTimeLimitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const updatedQuestion = { ...question, time: +e.target.value };
+    const updatedQuestion = { ...question, timer: +e.target.value };
     onChange(updatedQuestion);
   };
 

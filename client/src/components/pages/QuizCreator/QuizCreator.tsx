@@ -18,7 +18,7 @@ const DEFAULT_QUESTION_TIME = 10;
 const EMPTY_ANSWER_INPUT = { answer: "", correct: false };
 const EMPTY_QUESTION_INPUT = {
   question: "",
-  time: DEFAULT_QUESTION_TIME,
+  timer: DEFAULT_QUESTION_TIME,
   answers: Array(4).fill(EMPTY_ANSWER_INPUT),
 };
 const EMPTY_QUIZ_INPUT = {
