@@ -59,6 +59,8 @@ const Player = () => {
 
     const handleGameDisconnected = () => {
       setPin(undefined);
+      setScore(0);
+      setQuestionIndex(0);
       setGameState(GameState.Waiting);
     };
 
