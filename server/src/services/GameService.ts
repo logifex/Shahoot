@@ -94,7 +94,6 @@ const revealAnswers = (pin: string) => {
       chosenAnswerIndex !== undefined
         ? currentQuestion.answers[chosenAnswerIndex].correct
         : false;
-    player.score += player.round.score;
 
     const leadingUser = i > 0 ? scoreSortedPlayers[i - 1] : undefined;
     getIo()
@@ -148,6 +147,7 @@ const submitAnswer = (
       game.questionStartTime,
       currentQuestion.timer
     );
+    player.score += player.round.score;
   }
   getIo().to(game.host).emit("playerAnswered");
 };
