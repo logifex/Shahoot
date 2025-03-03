@@ -84,17 +84,33 @@ const revealAnswers = (pin: string) => {
 
   game.gettingAnswers = false;
   const currentQuestion = game.questions[game.currentQuestionIndex];
+  const scoreSortedPlayers = game.players
+    .slice()
+    .sort((a, b) => b.score - a.score);
 
-  game.players.forEach((player) => {
+  scoreSortedPlayers.forEach((player, i) => {
     const chosenAnswerIndex = player.round.chosenAnswerIndex;
     const correct =
       chosenAnswerIndex !== undefined
         ? currentQuestion.answers[chosenAnswerIndex].correct
         : false;
     player.score += player.round.score;
+
+    const leadingUser = i > 0 ? scoreSortedPlayers[i - 1] : undefined;
     getIo()
       .to(player.id)
-      .emit("revealResult", correct, player.round.score, player.score);
+      .emit(
+        "revealResult",
+        correct,
+        player.round.score,
+        player.score,
+        i + 1,
+        leadingUser && {
+          id: leadingUser.id,
+          nickname: leadingUser.nickname,
+          score: leadingUser.score,
+        }
+      );
   });
 
   getIo()

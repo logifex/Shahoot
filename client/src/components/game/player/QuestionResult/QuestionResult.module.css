@@ -1,5 +1,6 @@
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   flex: 1;
@@ -19,4 +20,8 @@
 .result-text {
   font-size: 2rem;
   font-weight: bold;
+}
+
+.rank-text {
+  font-size: 1.5rem;
 }

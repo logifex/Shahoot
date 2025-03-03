@@ -10,7 +10,13 @@ export interface IServerToClientEvents {
   startQuestion: () => void;
   playerAnswered: () => void;
   revealAnswers: (players: IPlayer[]) => void;
-  revealResult: (correct: boolean, score: number, totalScore: number) => void;
+  revealResult: (
+    correct: boolean,
+    score: number,
+    totalScore: number,
+    rank: number,
+    leadingUser?: IPlayer
+  ) => void;
   gameDisconnected: () => void;
   error: (message: string) => void;
 }

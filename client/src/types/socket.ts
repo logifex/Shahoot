@@ -9,7 +9,13 @@ export interface ServerToClientEvents {
   startQuestion: () => void;
   playerAnswered: () => void;
   revealAnswers: (players: Player[]) => void;
-  revealResult: (correct: boolean, score: number, totalScore: number) => void;
+  revealResult: (
+    correct: boolean,
+    score: number,
+    totalScore: number,
+    rank: number,
+    leadingUser?: Player
+  ) => void;
   gameDisconnected: () => void;
   error: (message: string) => void;
 }

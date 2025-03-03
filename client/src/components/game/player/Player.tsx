@@ -7,6 +7,7 @@ import AnswerButton from "./AnswerButton/AnswerButton";
 import Waiting from "./Waiting/Waiting";
 import QuestionResult from "./QuestionResult/QuestionResult";
 import PlayerLayout from "./PlayerLayout/PlayerLayout";
+import PlayerModel from "../../../types/player";
 
 enum GameState {
   Waiting,
@@ -22,7 +23,12 @@ const Player = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answerAmount, setAnswerAmount] = useState(0);
   const [chosenAnswerIndex, setChosenAnswerIndex] = useState<number>();
-  const [round, setRound] = useState<{ correct: boolean; score: number }>();
+  const [round, setRound] = useState<{
+    correct: boolean;
+    score: number;
+    rank: number;
+    leadingUser?: PlayerModel;
+  }>();
   const [gameState, setGameState] = useState<GameState>(GameState.Waiting);
 
   const handleJoin = (pin: string, nickname: string) => {
@@ -50,10 +56,17 @@ const Player = () => {
     const revealResult = (
       correct: boolean,
       score: number,
-      totalScore: number
+      totalScore: number,
+      rank: number,
+      leadingUser?: PlayerModel
     ) => {
       setGameState(GameState.QuestionResults);
-      setRound({ correct: correct, score: score });
+      setRound({
+        correct: correct,
+        score: score,
+        rank: rank,
+        leadingUser: leadingUser,
+      });
       setScore(totalScore);
     };
 
@@ -106,8 +119,8 @@ const Player = () => {
         ) : (
           <AnswerButton index={chosenAnswerIndex} />
         ))}
-      {gameState === GameState.QuestionResults && (
-        <QuestionResult correct={!!round?.correct} score={round?.score ?? 0} />
+      {gameState === GameState.QuestionResults && round && (
+        <QuestionResult {...round} />
       )}
     </PlayerLayout>
   );
