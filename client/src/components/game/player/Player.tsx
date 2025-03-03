@@ -120,7 +120,7 @@ const Player = () => {
           <AnswerButton index={chosenAnswerIndex} />
         ))}
       {gameState === GameState.QuestionResults && round && (
-        <QuestionResult {...round} />
+        <QuestionResult {...round} totalScore={score} />
       )}
     </PlayerLayout>
   );

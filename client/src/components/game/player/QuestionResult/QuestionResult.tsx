@@ -6,11 +6,18 @@ type Props = {
   score: number;
   rank: number;
   leadingUser?: Player;
+  totalScore: number;
 };
 
-const QuestionResult = ({ correct, score, rank, leadingUser }: Props) => {
+const QuestionResult = ({
+  correct,
+  score,
+  rank,
+  leadingUser,
+  totalScore,
+}: Props) => {
   const leadingScoreDifference = leadingUser
-    ? leadingUser.score - score
+    ? leadingUser.score - totalScore
     : undefined;
 
   const containerClass = correct
