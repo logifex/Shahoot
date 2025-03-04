@@ -156,6 +156,7 @@ const QuizCreator = () => {
         <form onSubmit={handleSubmit}>
           <div className={styles["form-group"]}>
             <LabelInput
+              id="title-input"
               label="Title"
               type="text"
               required
@@ -195,13 +196,7 @@ const QuizCreator = () => {
             <Button variant="primary" type="submit" disabled={formLoading}>
               Save Quiz
             </Button>
-            <Button
-              variant="danger"
-              type="button"
-              onClick={() => {
-                navigate(quizId ? `/quiz/${quizId}` : "/");
-              }}
-            >
+            <Button variant="danger" to={quizId ? `/quiz/${quizId}` : "/"}>
               Cancel
             </Button>
           </div>

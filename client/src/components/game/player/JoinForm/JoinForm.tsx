@@ -12,7 +12,7 @@ type Props = {
 const JoinForm = ({ onSubmit }: Props) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     const pin = pinRef.current?.value;
     const name = nameRef.current?.value;
 
@@ -32,8 +32,14 @@ const JoinForm = ({ onSubmit }: Props) => {
       <div>
         <form className={styles.form} onSubmit={handleSubmit}>
           <div>
-            <input ref={pinRef} type="text" placeholder="Game PIN" />
             <input
+              id="game-pin-input"
+              ref={pinRef}
+              type="text"
+              placeholder="Game PIN"
+            />
+            <input
+              id="nickname-input"
               ref={nameRef}
               type="text"
               placeholder="Nickname"

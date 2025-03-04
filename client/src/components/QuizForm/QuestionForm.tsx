@@ -48,6 +48,7 @@ const QuestionForm = ({
       <legend>Question {number}</legend>
       <div className={formStyles["form-group"]}>
         <LabelInput
+          id={`question-input-${number}`}
           type="text"
           required
           maxLength={MAX_QUESTION_LENGTH}
@@ -58,6 +59,7 @@ const QuestionForm = ({
       </div>
       <div className={formStyles["form-group"]}>
         <LabelInput
+          id={`time-input-${number}`}
           label="Time Limit (Seconds)"
           min={5}
           max={240}
@@ -73,6 +75,7 @@ const QuestionForm = ({
           {question.answers.map((a, i) => (
             <div key={i} className={styles.answer}>
               <LabelInput
+                id={`answer-input-${number}-${i + 1}`}
                 type="text"
                 required={i <= 1}
                 maxLength={MAX_ANSWER_LENGTH}
@@ -81,6 +84,7 @@ const QuestionForm = ({
                 value={a.answer}
               />
               <input
+                id={`correct-checkbox-${number}-${i + 1}`}
                 type="checkbox"
                 title="Correct"
                 onChange={(e) => handleCorrectChange(i, e.target.checked)}

@@ -94,6 +94,7 @@ const Register = () => {
       <form onSubmit={handleSubmit}>
         <div className={styles["form-group"]}>
           <LabelInput
+            id="email-input"
             label="Email"
             type="email"
             onChange={(e) => setEmail(e.target.value)}
@@ -103,6 +104,7 @@ const Register = () => {
         </div>
         <div className={styles["form-group"]}>
           <LabelInput
+            id="username-input"
             label="Username"
             type="text"
             onChange={(e) => setUsername(e.target.value)}
@@ -117,6 +119,7 @@ const Register = () => {
         </div>
         <div className={styles["form-group"]}>
           <LabelInput
+            id="password-input"
             label="Password"
             type="password"
             onChange={(e) => setPassword(e.target.value)}
@@ -131,6 +134,7 @@ const Register = () => {
         </div>
         <div className={styles["form-group"]}>
           <LabelInput
+            id="confirm-password-input"
             label="Confirm Password"
             type="password"
             onChange={(e) =>

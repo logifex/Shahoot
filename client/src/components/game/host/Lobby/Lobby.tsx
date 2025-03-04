@@ -3,12 +3,16 @@ import Game from "../../../../types/game";
 import Button from "../../../ui/Button/Button";
 import styles from "./Lobby.module.css";
 import PlayerList from "../PlayerList/PlayerList";
+import { useSearchParams } from "react-router";
 
 type Props = {
   game: Game;
 };
 
 const Lobby = ({ game }: Props) => {
+  const [searchParams] = useSearchParams();
+  const quizId = searchParams.get("quiz");
+
   const handleStart = () => {
     socket.emit("nextQuestion", game.pin);
   };
@@ -32,7 +36,11 @@ const Lobby = ({ game }: Props) => {
       </div>
       <div className={styles.lobby}>
         <div className={styles["players-header"]}>
-          <div className={styles.spacer}></div>
+          <div className={styles.spacer}>
+            <Button variant="inverted" to={`/quiz/${quizId}`}>
+              Go Back
+            </Button>
+          </div>
           <div className={styles.title}>
             <h2>Shahoot!</h2>
           </div>

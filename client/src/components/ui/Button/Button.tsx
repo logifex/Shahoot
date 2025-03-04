@@ -1,8 +1,9 @@
+import { Link, LinkProps } from "react-router";
 import styles from "./Button.module.css";
 
 type Variant = "primary" | "secondary" | "danger" | "inverted";
 
-type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+type Props = (React.ButtonHTMLAttributes<HTMLButtonElement> | LinkProps) & {
   variant?: Variant;
 };
 
@@ -28,9 +29,20 @@ const Button = ({ className, children, variant, ...rest }: Props) => {
     .join(" ");
 
   return (
-    <button className={buttonClass} {...rest}>
-      {children}
-    </button>
+    <>
+      {(rest as LinkProps).to ? (
+        <Link className={buttonClass} {...(rest as LinkProps)}>
+          {children}
+        </Link>
+      ) : (
+        <button
+          className={buttonClass}
+          {...(rest as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+        >
+          {children}
+        </button>
+      )}
+    </>
   );
 };
 

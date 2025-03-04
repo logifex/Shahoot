@@ -3,7 +3,6 @@ import styles from "./QuizzesPage.module.css";
 import QuizService from "../../../services/QuizService";
 import Quiz from "../../../types/quiz";
 import QuizCard from "../../QuizCard/QuizCard";
-import { useNavigate } from "react-router";
 import AuthContext from "../../../context/AuthContext";
 import Button from "../../ui/Button/Button";
 import { AxiosError } from "axios";
@@ -12,8 +11,6 @@ const QuizzesPage = () => {
   const [quizzes, setQuizzes] = useState<Quiz[]>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<AxiosError>();
-
-  const navigate = useNavigate();
 
   const { userData } = useContext(AuthContext);
 
@@ -39,10 +36,6 @@ const QuizzesPage = () => {
     fetchQuizzes();
   }, [userData]);
 
-  const handleCreate = () => {
-    navigate("/creator");
-  };
-
   return (
     <>
       <section className={styles.hero}>
@@ -51,8 +44,7 @@ const QuizzesPage = () => {
         <Button
           variant="inverted"
           className={styles["create-btn"]}
-          type="button"
-          onClick={handleCreate}
+          to="/creator"
         >
           + Create New Quiz
         </Button>

@@ -68,6 +68,7 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <div className={styles["form-group"]}>
           <LabelInput
+            id="username-input"
             label="Username"
             type="text"
             onChange={(e) => {
@@ -78,6 +79,7 @@ const Login = () => {
         </div>
         <div className={styles["form-group"]}>
           <LabelInput
+            id="password-input"
             label="Password"
             type="password"
             onChange={(e) => {

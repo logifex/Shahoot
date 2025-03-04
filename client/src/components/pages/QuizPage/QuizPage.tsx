@@ -56,10 +56,6 @@ const QuizPage = () => {
     });
   };
 
-  const handleEdit = async () => {
-    navigate(`/creator/${quizId}`);
-  };
-
   const handleDelete = async () => {
     if (!userData) {
       return;
@@ -90,8 +86,7 @@ const QuizPage = () => {
               <Button
                 variant="secondary"
                 className={styles.btn}
-                type="button"
-                onClick={handleEdit}
+                to={`/creator/${quizId}`}
               >
                 Edit
               </Button>

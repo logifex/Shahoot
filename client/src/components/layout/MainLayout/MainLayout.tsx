@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigate } from "react-router";
+import { Link, Outlet } from "react-router";
 import styles from "./MainLayout.module.css";
 import { useContext } from "react";
 import AuthContext from "../../../context/AuthContext";
@@ -6,12 +6,6 @@ import Button from "../../ui/Button/Button";
 
 const MainLayout = () => {
   const { userData, signOut } = useContext(AuthContext);
-
-  const navigate = useNavigate();
-
-  const handleLogin = () => {
-    navigate("/login");
-  };
 
   return (
     <div className={styles.layout}>
@@ -36,7 +30,8 @@ const MainLayout = () => {
                 variant="inverted"
                 className={styles["login-btn"]}
                 type="button"
-                onClick={userData ? signOut : handleLogin}
+                onClick={userData ? signOut : undefined}
+                to={!userData ? "/login" : undefined}
               >
                 {userData ? "Logout" : "Login"}
               </Button>
