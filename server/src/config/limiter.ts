@@ -8,6 +8,8 @@ export const loginLimiter = rateLimit({
     code: "TOO_MANY_REQUESTS",
   },
   keyGenerator: (req) => req.body.username,
+  skip: (req) => !req.body.username,
+  skipSuccessfulRequests: true,
 });
 
 export const registerLimiter = rateLimit({
@@ -17,6 +19,7 @@ export const registerLimiter = rateLimit({
     message: "Too many requests, please try again later.",
     code: "TOO_MANY_REQUESTS",
   },
+  skipFailedRequests: true,
 });
 
 export const emailLimiter = rateLimit({
@@ -27,4 +30,5 @@ export const emailLimiter = rateLimit({
     code: "TOO_MANY_REQUESTS",
   },
   keyGenerator: (req) => req.body.username,
+  skipFailedRequests: true,
 });
