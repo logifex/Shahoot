@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import AuthService from "../services/AuthService";
 import UserExistsError from "../errors/UserExistsError";
+import { loginLimiter } from "../config/limiter";
 
 const postRegister = async (req: Request, res: Response) => {
   const { email, username, password } = req.body;
@@ -20,6 +21,8 @@ const postLogin = async (req: Request, res: Response) => {
   if (!user) {
     throw new Error("No user");
   }
+
+  loginLimiter.resetKey(req.body.username);
 
   const token = await AuthService.signAuthToken(user._id.toString());
 

@@ -62,7 +62,12 @@ const Login = () => {
             ) : (
               <span>Wrong username or password.</span>
             ))}
-          {apiError.status !== 401 && <span>Error trying to login.</span>}
+          {apiError.status === 429 && (
+            <span>Too many failed attempts. Try again later.</span>
+          )}
+          {apiError.status !== 401 && apiError.status !== 429 && (
+            <span>Error trying to login.</span>
+          )}
         </div>
       )}
       <form onSubmit={handleSubmit}>
